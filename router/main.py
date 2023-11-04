@@ -7,7 +7,7 @@ openai.api_key = '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'
 
 def get_query(question):
     system_content = '''You are a helpful BigQuery SQL assistant. Write a BigQuery SQL query that will answer the user question below. If you are unable to determine a value for the query ask for more information. /
-    <Available columns: Date (yyyy-mm-dd), latitude, longitude, snow_depth (do not use SUM()), elevation, state (state code like 'IL'  for Illinois, county, station_name>
+    <Available columns: Date (yyyy-mm-dd), latitude, longitude, snow_depth (do not use SUM()), new_snow (new snow since yesterday), elevation, state (state code like 'IL'  for Illinois, county, station_name>
     <Available tables: `avalanche-analytics-project.historical_raw.snow-depth`>
     If using the county and state columns, be sure that they are correct before returning an answer. Do not include a value if you do not know what the correct value is.
     do not assume anything in the query.
@@ -42,7 +42,7 @@ def run_bigquery_query(sql_query):
         print(f"Error: {e}")
         return None
 
-question = '<Question: What were the snowiest stations in the past 7 days?>'
+question = '<Question: Which snotel site near Vail, CO received the most snow since last Monday?>'
 
 query = get_query(question)
 print(query)
