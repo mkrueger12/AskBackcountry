@@ -22,12 +22,31 @@ class SnowDepthQuestion:
         Do not assume anything in the query. Always LIMIT results when possible.
         Return only the SQL query.'''
 
+        system_content = '''Given the following SQL tables, your job is to write queries given a user’s question. 
+                            CREATE TABLE `avalanche-analytics-project.historical_raw.snow-depth` (
+                            state STRING NULLABLE <state code like 'IL'  for Illinois>,
+                            county STRING NULLABLE <Used to determine station county or location>,
+                            latitude FLOAT NULLABLE,
+                            longitude FLOAT NULLABLE,
+                            elevation INTEGER NULLABLE,
+                            station_name STRING NULLABLE,
+                            station_id INTEGER NULLABLE,
+                            Date DATE NULLABLE <yyyy-mm-dd>,
+                            snow_depth FLOAT NULLABLE <do not use SUM()>,
+                            new_snow FLOAT NULLABLE <inches>);
+                            Always LIMIT results when possible.'''
+
         completion = openai.ChatCompletion.create(
-          model="gpt-4",
-          messages=[
-            {"role": "system", "content": system_content},
-            {"role": "user", "content": question}
-          ]
+            model="gpt-4",
+            temperature=0,
+            max_tokens=512,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0,
+            messages=[
+                {"role": "system", "content": system_content},
+                {"role": "user", "content": question}
+            ]
         )
 
         return completion.choices[0].message['content']
@@ -53,18 +72,19 @@ class SnowDepthQuestion:
 
 
 def get_response(data, question):
-        system_content = ('You are a helpful assistant. Answer the user question based on the context. '
-                          'If you are unable to determine a value for the query ask for more information.'
-                          f'<context>: {data}')
+    system_content = ('You are a helpful assistant. Answer the user question based on the context. '
+                      f'<context>: {data}'
+                      f'If you cannot answer the question, ask for more information. ')
 
-        completion = openai.ChatCompletion.create(
-          model="gpt-3.5-turbo",
-          messages=[
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        temperature=0.3,
+        messages=[
             {"role": "system", "content": system_content},
             {"role": "user", "content": question}
-          ]
-        )
+        ]
+    )
 
-        return completion.choices[0].message['content']
+    return completion.choices[0].message['content']
 
 
