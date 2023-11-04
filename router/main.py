@@ -52,7 +52,7 @@ class SnowDepthQuestion:
             return None
 
 
-def get_response(self, data, question):
+def get_response(data, question):
         system_content = ('You are a helpful assistant. Answer the user question based on the context. '
                           'If you are unable to determine a value for the query ask for more information.'
                           f'<context>: {data}')
@@ -69,7 +69,7 @@ def get_response(self, data, question):
 
 
 ###############################
-
+''''
 user_question = SnowDepthQuestion()
 
 question = '<Question: Which snotel site near Vail, CO received the most snow since last Monday?>'
@@ -87,3 +87,4 @@ if len(result) > 0:
 else:
     print("Sorry, I don't know the answer to that question. Try provide more detail.")
 
+'''
