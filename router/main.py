@@ -16,10 +16,10 @@ class SnowDepthQuestion:
 
     def get_query(self, question):
         system_content = '''You are a helpful BigQuery SQL assistant. Write a BigQuery SQL query that will answer the user question below. If you are unable to determine a value for the query ask for more information. /
-        <Available columns: Date (yyyy-mm-dd), latitude, longitude, snow_depth (do not use SUM()), new_snow (new snow since yesterday), elevation, state (state code like 'IL'  for Illinois, county (administrative subdivision of a state), station_name>
+        <Available columns: Date (yyyy-mm-dd), latitude, longitude, snow_depth (do not use SUM()), new_snow (new snow since yesterday), elevation, state (state code like 'IL'  for Illinois, county (administrative subdivision of a state), station_name (Vail Mountain)>
         <Available tables: `avalanche-analytics-project.historical_raw.snow-depth`>
         If using the county and state columns, be sure that they are correct before returning an answer. Do not include a value if you do not know what the correct value is.
-        do not assume anything in the query.
+        Do not assume anything in the query and limit results where possible.
         Return only the SQL query.'''
 
         completion = openai.ChatCompletion.create(
@@ -68,23 +68,3 @@ def get_response(data, question):
         return completion.choices[0].message['content']
 
 
-###############################
-''''
-user_question = SnowDepthQuestion()
-
-question = '<Question: Which snotel site near Vail, CO received the most snow since last Monday?>'
-
-query = user_question.get_query(question)
-print(query)
-
-result = user_question.run_bigquery_query(query)
-print(result)
-
-if len(result) > 0:
-    response = get_response([result, query], question)
-    print(response)
-
-else:
-    print("Sorry, I don't know the answer to that question. Try provide more detail.")
-
-'''
