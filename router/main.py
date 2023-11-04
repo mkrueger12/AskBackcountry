@@ -19,7 +19,7 @@ class SnowDepthQuestion:
         <Available columns: Date (yyyy-mm-dd), latitude, longitude, snow_depth (do not use SUM()), new_snow (new snow since yesterday), elevation, state (state code like 'IL'  for Illinois, county (administrative subdivision of a state), station_name (Vail Mountain)>
         <Available tables: `avalanche-analytics-project.historical_raw.snow-depth`>
         If using the county and state columns, be sure that they are correct before returning an answer. Do not include a value if you do not know what the correct value is.
-        Do not assume anything in the query and limit results where possible.
+        Do not assume anything in the query. Always LIMIT results when possible.
         Return only the SQL query.'''
 
         completion = openai.ChatCompletion.create(
