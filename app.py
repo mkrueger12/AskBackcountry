@@ -1,6 +1,5 @@
-import openai
 import streamlit as st
-from router.main import SnowDepthQuestion, get_response
+from helpers.SnowDepth import SnowDepthQuestion, get_response
 
 # Set Script
 st.title("💬 AskBackcountry")
