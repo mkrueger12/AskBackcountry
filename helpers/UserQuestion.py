@@ -29,9 +29,11 @@ class UserQuestion:
 
 @st.cache_data(persist=True, ttl='24h')
 def response(data, question):
-    system_content = ('You are a helpful assistant. Answer the user question based on the context. '
-                      f'<context>: {data}'
-                      f'If you cannot answer the question, ask for more information. ')
+    system_content = ('You are a helpful assistant. Answer the user question based on the context below. Consider summarizing the context.'
+                      ' '
+                      f'<context> {data} <context> ')
+
+    print(system_content)
 
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -93,6 +95,7 @@ def clear_chat_history():
 @st.cache_data(persist=True, ttl=None)
 def location_extraction(question):
     system_content = ('You will be provided with a text, and your task is to extract the county, state, elevation, latitude, and longitude from it.'
+                      'Do not attempt to answer the question. Only extract the location information.'
                       'If you are unsure return None for the given field.'
                       '#### Example ###'
                       'Text: How much snow is at Loveland Pass?'
