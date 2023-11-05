@@ -14,8 +14,8 @@ def GPT_QB(user_query):
     messages = [{"role": "user", "content": user_query}]
     functions = [
         {
-            "name": "get_query",
-            "description": "Generates a SQL query for Snow Depth and Snow Fall data based on the user's question.",
+            "name": "snow_depth_data",
+            "description": "Collects Snow Depth and Snow Fall data based on the user's question.",
             "parameters": {
                 "type": "object",
                 "properties": {

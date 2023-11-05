@@ -1,5 +1,6 @@
 import streamlit as st
 from helpers.SnowDepth import SnowDepthQuestion, get_response
+from helpers.UserQuestion import UserQuestion
 
 # Set Script
 st.title("💬 AskBackcountry")
@@ -31,20 +32,21 @@ for message in st.session_state.messages:
 query = st.chat_input("Your Question Here")
 
 if query:
+
     st.session_state.messages.append({"role": "user", "content": query})
     st.chat_message('user').write(query)
 
     with st.spinner(":brain: Thinking..."):
-        user_question = SnowDepthQuestion()
-        sql_query = user_question.get_query(query)
-        st.session_state.sql.append({"question": query, "sql_query": sql_query})
-        result = user_question.run_bigquery_query(sql_query)
+        user_question = UserQuestion(query)
+        user_question.snow_depth_data()
+        st.session_state.sql.append({"question": query, "sql_query": user_question.sql})
+        result = user_question.data
         #st.write(result)
 
         if result is not None and len(result) > 0:
             st.write(":white_check_mark: Data Found")
             st.write(":chart_with_upwards_trend: Analyzing")
-            msg = get_response(data=[result, sql_query], question=query)
+            msg = get_response(data=[result, user_question.sql], question=query)
             st.session_state.messages.append({"role": "assistant", "content": msg})
             st.chat_message('assistant').write(msg)
 

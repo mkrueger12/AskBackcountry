@@ -1,0 +1,34 @@
+[
+  {
+    "name": "snow_depth_data",
+    "description": "Collects Snow Depth and Snow Fall data based on the user's question.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "user_question": {
+          "type": "string",
+          "description": "How much new snow has fallen in the last 24 hours in Eagle County?"
+        }
+      },
+      "required": [
+        "user_question"
+      ]
+    }
+  },
+  {
+    "name": "get_query_hunting",
+    "description": "Generates a SQL query for hunting related data based on the user's question.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "user_question": {
+          "type": "string",
+          "description": "What was the archery elk success rate for GMU 49?"
+        }
+      },
+      "required": [
+        "user_question"
+      ]
+    }
+  }
+]

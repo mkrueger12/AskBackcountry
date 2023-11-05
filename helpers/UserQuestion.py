@@ -1,11 +1,17 @@
 import os
+import json
 import dotenv
 import openai
 from google.cloud import bigquery
 
+
 dotenv.load_dotenv('utils/.env')
 
 openai.api_key = os.getenv('OPENAI_KEY')
+
+# Open the JSON file and load its content into a dictionary
+with open('utils/functions.json', 'r') as json_file:
+    functions = json.load(json_file)
 
 
 class UserQuestion:
@@ -14,6 +20,28 @@ class UserQuestion:
         self.question = question
         self.sql = None
         self.data = None
+        self.method = None
+
+    def method_selector(self):
+
+        ''' Determines which function should be called based on the user's query.'''
+
+        messages = [{"role": "user", "content": self.question}]
+
+        response = openai.ChatCompletion.create(
+            model="gpt-4",
+            temperature=0,
+            max_tokens=512,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0,
+            messages=messages,
+            functions=functions,
+        )
+
+        self.method = response["choices"][0]["message"]["function_call"]['name']
+
+        return self.method
 
     def snow_depth_sql(self):
         system_content = '''You are a helpful BigQuery SQL assistant. Write a BigQuery SQL query that will answer the user question below. If you are unable to determine a value for the query ask for more information. /
@@ -61,6 +89,7 @@ class UserQuestion:
         try:
             # Perform a query.
             QUERY = self.snow_depth_sql()
+            print(QUERY)
             query_job = client.query(QUERY)  # API request
             rows = query_job.result()  # Waits for query to finish
             self.data = [dict(row.items()) for row in rows]
@@ -71,3 +100,19 @@ class UserQuestion:
             # Handle exceptions, you might want to log the error or raise it again
             print(f"Error: {e}")
             return None
+
+    def run(self):
+        self.method_selector()
+
+        if self.method == 'snow_depth_data':
+            self.snow_depth_data()
+        else:
+            return ('Sorry, I could not find any results for your query.')
+
+
+######################
+
+user_question = UserQuestion("How much new snow has fallen in the last 24 hours in Eagle County?")
+user_question.run()
+
+
