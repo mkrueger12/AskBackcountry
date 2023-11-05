@@ -47,6 +47,7 @@ class UserQuestion:
     def snow_depth_sql(_self):
 
         system_content = '''Given the following SQL tables, your job is to write prompts given a user’s question. 
+        
                             CREATE TABLE `avalanche-analytics-project.historical_raw.snow-depth` (
                             state STRING <example: 'IL'>,
                             county STRING <Used to determine station county or location, example: 'Eagle'>,
@@ -107,7 +108,7 @@ class UserQuestion:
             return ('Sorry, I could not find any results for your query.')
 
 
-@streamlit.cache_data
+@streamlit.cache_data(persist=True)
 def response(data, question):
     system_content = ('You are a helpful assistant. Answer the user question based on the context. '
                       f'<context>: {data}'
