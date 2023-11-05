@@ -1,20 +1,18 @@
 import streamlit as st
-from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data
+from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data, clear_chat_history
 
 # Set Script
 st.title("💬 AskBackcountry")
 st.caption("🚀 An Adventure Planning Companion")
 st.write(st.session_state)
 
-# set UI
-def clear_chat_history():
-    st.session_state.messages = [{"role": "assistant", "content": "Lets plan an adventure!"}]
-    st.session_state['sql'] = [{"question": None, "sql_query": None}]
-
+################### SET UI COMPONENTS ###################
 
 st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
 
-#Set context
+
+################## INITIALIZE SESSION STATE ##################
+
 if "sql" not in st.session_state:
     st.session_state['sql'] = [{"question": None, "sql_query": None}]
 
@@ -27,6 +25,10 @@ for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
+
+################## RUN APP ##################
+
+
 # Get user input
 query = st.chat_input("Your Question Here")
 
@@ -38,6 +40,8 @@ if query:
     with st.spinner(":brain: Thinking..."):
         user_question = UserQuestion(query)
         user_question.method = method_selector(query)  # Collect data for the user question
+
+        ######## COLLECT THE CORRECT DATA ########
 
         if user_question.method == 'snow_depth_data':
             user_question.sql = snow_depth_sql(query)
