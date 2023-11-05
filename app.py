@@ -38,7 +38,7 @@ if query:
 
     with st.spinner(":brain: Thinking..."):
         user_question = UserQuestion(query)
-        user_question.snow_depth_data()
+        user_question.run() # Collect data for the user question
         st.session_state.sql.append({"question": query, "sql_query": user_question.sql})
         result = user_question.data
         #st.write(result)
