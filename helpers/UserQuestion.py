@@ -54,7 +54,7 @@ class UserQuestion:
         system_content = '''Given the following SQL tables, your job is to write queries given a user’s question. 
                             CREATE TABLE `avalanche-analytics-project.historical_raw.snow-depth` (
                             state STRING NULLABLE <state code like 'IL'  for Illinois>,
-                            county STRING NULLABLE <Used to determine station county or location>,
+                            county STRING NULLABLE <Used to determine station county or location, example: 'Eagle'>,
                             latitude FLOAT NULLABLE,
                             longitude FLOAT NULLABLE,
                             elevation INTEGER NULLABLE,
@@ -114,7 +114,7 @@ class UserQuestion:
 
 ######################
 
-user_question = UserQuestion("How much new snow has fallen in the last 24 hours in Eagle County?")
+user_question = UserQuestion("How much new snow has fallen in October 2023 in Eagle County?")
 user_question.run()
 
 
