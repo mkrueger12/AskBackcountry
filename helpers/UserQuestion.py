@@ -25,7 +25,7 @@ class UserQuestion:
         _self.method = None
 
 
-@streamlit.cache_data(persist=True)
+@streamlit.cache_data(persist=True, ttl='24h')
 def response(data, question):
     system_content = ('You are a helpful assistant. Answer the user question based on the context. '
                       f'<context>: {data}'
@@ -43,7 +43,7 @@ def response(data, question):
     return completion.choices[0].message['content']
 
 
-@streamlit.cache_data(persist=True)
+@streamlit.cache_data(persist=True, ttl='24h')
 def snow_depth_sql(question):
     system_content = '''Given the following SQL tables, your job is to write prompts given a user’s question. 
 
@@ -79,7 +79,7 @@ def snow_depth_sql(question):
     return completion.choices[0].message['content']
 
 
-@streamlit.cache_data(persist=True)
+@streamlit.cache_data(persist=True, ttl=None)
 def method_selector(question):
 
     ''' Determines which function should be called based on the user's query.'''
@@ -100,7 +100,7 @@ def method_selector(question):
     return response["choices"][0]["message"]["function_call"]['name']
 
 
-@streamlit.cache_data(persist=True)
+@streamlit.cache_data(persist=True, ttl='24h')
 def query_bq_data(sql_query):
     # Initialize a BigQuery client
     client = bigquery.Client(project='avalanche-analytics-project')

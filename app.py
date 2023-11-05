@@ -48,7 +48,7 @@ if query:
         #st.write(result)
 
         if result is not None and len(result) > 0:
-            st.write(":white_check_mark: Data Found")
+            #st.write(":white_check_mark: Data Found")
             response = response([result, user_question.sql], query)
             st.session_state.messages.append({"role": "assistant", "content": response})
             st.chat_message('assistant').write(response)
