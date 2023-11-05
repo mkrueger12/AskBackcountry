@@ -1,5 +1,6 @@
 import streamlit as st
-from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data, clear_chat_history, location_extraction
+import json
+from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data, clear_chat_history, location_extraction, weather_forecast
 
 
 ################### SET UI COMPONENTS ###################
@@ -38,15 +39,20 @@ if query:
 
     with st.spinner(":brain: Thinking..."):
         user_question = UserQuestion(query)
-        user_question.method = method_selector(query)  # Collect data for the user question
-        user_question.location = location_extraction(query)  # Extract location from user question
-        query = query + ' Additional context:' + user_question.location
+        user_question.method = method_selector(user_question.question)  # Collect data for the user question
+        user_question.location = json.loads(location_extraction(user_question.question))  # Extract location from user question
+        query = user_question.question + ' Additional context:' + str(user_question.location)
 
         ######## COLLECT THE CORRECT DATA ########
 
         if user_question.method == 'snow_depth_data':
             user_question.sql = snow_depth_sql(query)
             user_question.data = query_bq_data(user_question.sql)
+
+        if user_question.method == 'weather_forecast':
+            lat = user_question.location['latitude']
+            lon = user_question.location['longitude']
+            user_question.data = weather_forecast(lat, lon)
 
         st.session_state.sql.append({"question": query, "sql_query": user_question.sql})
         result = user_question.data

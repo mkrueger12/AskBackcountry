@@ -30,5 +30,24 @@
         "user_question"
       ]
     }
+  },
+  {
+    "name": "weather_forecast",
+    "description": "Returns the 3-day weather forecast for a given location.",
+    "parameters": {
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "type": "string",
+          "description": "The latitude of the location in decimal degrees."
+        },
+        "longitude": {
+          "type": "string",
+          "description": "The longitude of the location in decimal degrees."
+        }
+      },
+      "required": [
+      ]
+    }
   }
 ]

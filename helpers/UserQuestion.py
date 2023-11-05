@@ -1,5 +1,6 @@
 import os
 import json
+import requests
 import dotenv
 import openai
 import streamlit as st
@@ -91,11 +92,11 @@ def clear_chat_history():
 
 @st.cache_data(persist=True, ttl=None)
 def location_extraction(question):
-    system_content = ('You will be provided with a text, and your task is to extract the county, state, and elevation from it.'
+    system_content = ('You will be provided with a text, and your task is to extract the county, state, elevation, latitude, and longitude from it.'
                       'If you are unsure return None for the given field.'
                       '#### Example ###'
                       'Text: How much snow is at Loveland Pass?'
-                      'Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900}')
+                      'Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900, "latitude": 39.6806, "longitude": -105.8972}')
 
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -111,6 +112,18 @@ def location_extraction(question):
     )
 
     return completion.choices[0].message['content']
+
+
+@st.cache_data(persist=True, ttl='1h')
+def weather_forecast(latitude, longitude):
+
+    url = f'https://api.weather.gov/points/{latitude},{longitude}'
+    response = requests.get(url)
+    data = response.json()
+    forecast = requests.get(data['properties']['forecast'])
+    forecast = forecast.json()
+
+    return forecast['properties']['periods'][:6]
 
 
 @st.cache_data(persist=True, ttl='24h')

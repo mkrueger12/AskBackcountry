@@ -1,5 +1,4 @@
-1. location handler
-2. weather input
+1. weather input
 3. Charts/Images?
 
 - Prompt management
