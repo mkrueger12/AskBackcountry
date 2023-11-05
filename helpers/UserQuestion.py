@@ -12,8 +12,9 @@ class UserQuestion:
 
     def __init__(self, question):
         self.question = question
+        self.snow_depth_sql = None
 
-    def get_snow_depth_sql(self):
+    def snow_depth_sql(self):
         system_content = '''You are a helpful BigQuery SQL assistant. Write a BigQuery SQL query that will answer the user question below. If you are unable to determine a value for the query ask for more information. /
         <Available columns: Date (yyyy-mm-dd), latitude, longitude, snow_depth (do not use SUM()), new_snow (new snow since yesterday), elevation, state (state code like 'IL'  for Illinois, county (administrative subdivision of a state), station_name (Vail Mountain)>
         <Available tables: `avalanche-analytics-project.historical_raw.snow-depth`>
@@ -56,7 +57,7 @@ class UserQuestion:
 
         try:
             # Perform a query.
-            QUERY = self.get_snow_depth_sql()
+            QUERY = self.snow_depth_sql()
             query_job = client.query(QUERY)  # API request
             rows = query_job.result()  # Waits for query to finish
             result_dicts = [dict(row.items()) for row in rows]
