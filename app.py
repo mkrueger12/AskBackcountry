@@ -40,7 +40,6 @@ if query:
         user_question = UserQuestion(query)
         user_question.method = method_selector(query)  # Collect data for the user question
         user_question.location = location_extraction(query)  # Extract location from user question
-        st.write(user_question.location)
         query = query + ' Additional context:' + user_question.location
 
         ######## COLLECT THE CORRECT DATA ########

@@ -124,7 +124,7 @@ def snow_depth_sql(question):
                             longitude FLOAT,
                             elevation INTEGER,
                             station_id INTEGER,
-                            station_name STRING <only use if mentioned by user, example: 'Freemont Pass station'>,
+                            station_name STRING <only use if station mentioned by user, example: 'Vail Mountain'>,
                             Date DATE NULLABLE <yyyy-mm-dd>,
                             snow_depth FLOAT <do not use SUM()>,
                             new_snow FLOAT <inches, only SUM() when GROUP BY station_name>);
