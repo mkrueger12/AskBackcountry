@@ -1,15 +1,14 @@
 import streamlit as st
 from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data, clear_chat_history
 
-# Set Script
+
+################### SET UI COMPONENTS ###################
+
 st.title("💬 AskBackcountry")
 st.caption("🚀 An Adventure Planning Companion")
 st.write(st.session_state)
 
-################### SET UI COMPONENTS ###################
-
 st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
-
 
 ################## INITIALIZE SESSION STATE ##################
 
@@ -30,7 +29,7 @@ for message in st.session_state.messages:
 
 
 # Get user input
-query = st.chat_input("Your Question Here")
+query = st.chat_input("How much snow is at Berthoud Pass?")
 
 if query:
 
