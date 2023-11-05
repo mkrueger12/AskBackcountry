@@ -63,6 +63,8 @@ class UserQuestion:
                             Date DATE NULLABLE <yyyy-mm-dd>,
                             snow_depth FLOAT NULLABLE <do not use SUM()>,
                             new_snow FLOAT NULLABLE <inches>);
+                            
+                            Use Google Standard SQL.
                             Always LIMIT results when possible.'''
 
         completion = openai.ChatCompletion.create(
