@@ -12,7 +12,8 @@ class UserQuestion:
 
     def __init__(self, question):
         self.question = question
-        self.snow_depth_sql = None
+        self.sql = None
+        self.data = None
 
     def snow_depth_sql(self):
         system_content = '''You are a helpful BigQuery SQL assistant. Write a BigQuery SQL query that will answer the user question below. If you are unable to determine a value for the query ask for more information. /
@@ -49,9 +50,11 @@ class UserQuestion:
             ]
         )
 
-        return completion.choices[0].message['content']
+        self.sql = completion.choices[0].message['content']
 
-    def collect_snow_depth_data(self):
+        return self.sql
+
+    def snow_depth_data(self):
         # Initialize a BigQuery client
         client = bigquery.Client(project='avalanche-analytics-project')
 
@@ -60,10 +63,10 @@ class UserQuestion:
             QUERY = self.snow_depth_sql()
             query_job = client.query(QUERY)  # API request
             rows = query_job.result()  # Waits for query to finish
-            result_dicts = [dict(row.items()) for row in rows]
+            self.data = [dict(row.items()) for row in rows]
 
             # Return the result
-            return result_dicts
+            return self.data
         except Exception as e:
             # Handle exceptions, you might want to log the error or raise it again
             print(f"Error: {e}")
