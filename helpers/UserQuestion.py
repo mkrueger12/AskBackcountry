@@ -23,6 +23,7 @@ class UserQuestion:
         _self.sql = None
         _self.data = None
         _self.method = None
+        _self.location = None
 
 
 @st.cache_data(persist=True, ttl='24h')
@@ -88,6 +89,29 @@ def clear_chat_history():
     st.session_state['sql'] = [{"question": None, "sql_query": None}]
 
 
+@st.cache_data(persist=True, ttl=None)
+def location_extraction(question):
+    system_content = ('You will be provided with a text, and your task is to extract the county and state from it.'
+                      '#### Example ###'
+                      'Text: How much snow is at Loveland Pass?'
+                      'Response: {"county": "Clear Creek", "state": "CO"}')
+
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        temperature=0,
+        max_tokens=200,
+        top_p=1,
+        frequency_penalty=0,
+        presence_penalty=0,
+        messages=[
+            {"role": "system", "content": system_content},
+            {"role": "user", "content": question}
+        ]
+    )
+
+    return completion.choices[0].message['content']
+
+
 @st.cache_data(persist=True, ttl='24h')
 def snow_depth_sql(question):
     system_content = '''Given the following SQL tables, your job is to write prompts given a user’s question.
@@ -98,7 +122,6 @@ def snow_depth_sql(question):
                             latitude FLOAT,
                             longitude FLOAT,
                             elevation INTEGER,
-                            station_name STRING <example: 'Schofield Pass'>,
                             station_id INTEGER,
                             Date DATE NULLABLE <yyyy-mm-dd>,
                             snow_depth FLOAT <do not use SUM()>,

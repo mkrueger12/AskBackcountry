@@ -1,12 +1,12 @@
 import streamlit as st
-from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data, clear_chat_history
+from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data, clear_chat_history, location_extraction
 
 
 ################### SET UI COMPONENTS ###################
 
 st.title("💬 AskBackcountry")
 st.caption("🚀 An Adventure Planning Companion")
-#st.write(st.session_state)
+st.write(st.session_state)
 
 st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
 
@@ -39,6 +39,8 @@ if query:
     with st.spinner(":brain: Thinking..."):
         user_question = UserQuestion(query)
         user_question.method = method_selector(query)  # Collect data for the user question
+        user_question.location = location_extraction(query)  # Extract location from user question
+        query = query + ' Additional context:' + user_question.location
 
         ######## COLLECT THE CORRECT DATA ########
 
