@@ -1,3 +1,7 @@
+1. location handler
+2. weather input
+3. Charts/Images?
+
 - Prompt management
 - login page
 - store session state
@@ -6,3 +10,4 @@
 - Add comments
 - add tests
 - Caching
+- Reasoning chain
