@@ -27,7 +27,7 @@ class UserQuestion:
         _self.location = None
 
 
-@st.cache_data(persist=True, ttl='24h')
+@st.cache_data(ttl='24h')
 def response(data, question):
     system_content = ('You are a helpful assistant. Answer the user question based on the context below. Consider summarizing the context.'
                       ' '
@@ -68,7 +68,7 @@ def method_selector(question):
     return response["choices"][0]["message"]["function_call"]['name']
 
 
-@st.cache_data(persist=True, ttl='24h')
+@st.cache_data(ttl='24h')
 def query_bq_data(sql_query):
     # Initialize a BigQuery client
     client = bigquery.Client(project='avalanche-analytics-project')
@@ -117,7 +117,7 @@ def location_extraction(question):
     return completion.choices[0].message['content']
 
 
-@st.cache_data(persist=True, ttl='1h')
+@st.cache_data(ttl='1h')
 def weather_forecast(latitude, longitude):
 
     url = f'https://api.weather.gov/points/{latitude},{longitude}'
@@ -129,7 +129,7 @@ def weather_forecast(latitude, longitude):
     return forecast['properties']['periods'][:6]
 
 
-@st.cache_data(persist=True, ttl='24h')
+@st.cache_data(ttl='24h')
 def snow_depth_sql(question):
     system_content = '''Given the following SQL tables, your job is to write prompts given a user’s question.
 
