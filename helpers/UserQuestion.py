@@ -34,7 +34,7 @@ def response(data, question):
 
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
-        temperature=0.3,
+        temperature=0.0,
         messages=[
             {"role": "system", "content": system_content},
             {"role": "user", "content": question}
@@ -91,7 +91,8 @@ def clear_chat_history():
 
 @st.cache_data(persist=True, ttl=None)
 def location_extraction(question):
-    system_content = ('You will be provided with a text, and your task is to extract the county and state from it.'
+    system_content = ('You will be provided with a text, and your task is to extract the county, state, and elevation from it.'
+                      'If you are unsure return None for the given field.'
                       '#### Example ###'
                       'Text: How much snow is at Loveland Pass?'
                       'Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900}')
@@ -99,7 +100,7 @@ def location_extraction(question):
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         temperature=0,
-        max_tokens=200,
+        max_tokens=512,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
@@ -123,6 +124,7 @@ def snow_depth_sql(question):
                             longitude FLOAT,
                             elevation INTEGER,
                             station_id INTEGER,
+                            station_name STRING <only use if mentioned by user, example: 'Freemont Pass station'>,
                             Date DATE NULLABLE <yyyy-mm-dd>,
                             snow_depth FLOAT <do not use SUM()>,
                             new_snow FLOAT <inches, only SUM() when GROUP BY station_name>);
@@ -161,4 +163,4 @@ def snow_depth_sql(question):
         ]
     )
 
-    return completion.choices[0].message['content'].replace('Berthoud Pass', 'Berthoud Summit')  #Need to productionize this
+    return completion.choices[0].message['content']

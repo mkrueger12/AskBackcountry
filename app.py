@@ -40,6 +40,7 @@ if query:
         user_question = UserQuestion(query)
         user_question.method = method_selector(query)  # Collect data for the user question
         user_question.location = location_extraction(query)  # Extract location from user question
+        st.write(user_question.location)
         query = query + ' Additional context:' + user_question.location
 
         ######## COLLECT THE CORRECT DATA ########
@@ -50,11 +51,11 @@ if query:
 
         st.session_state.sql.append({"question": query, "sql_query": user_question.sql})
         result = user_question.data
-        #st.write(result)
+        st.write(result)
 
         if result is not None and len(result) > 0:
             #st.write(":white_check_mark: Data Found")
-            response = response([result, user_question.sql], query)
+            response = response([result], query)
             st.session_state.messages.append({"role": "assistant", "content": response})
             st.chat_message('assistant').write(response)
 
