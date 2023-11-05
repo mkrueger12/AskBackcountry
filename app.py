@@ -1,5 +1,5 @@
 import streamlit as st
-from helpers.UserQuestion import UserQuestion, response
+from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data
 
 # Set Script
 st.title("💬 AskBackcountry")
@@ -37,7 +37,12 @@ if query:
 
     with st.spinner(":brain: Thinking..."):
         user_question = UserQuestion(query)
-        user_question.run() # Collect data for the user question
+        user_question.method = method_selector(query)  # Collect data for the user question
+
+        if user_question.method == 'snow_depth_data':
+            user_question.sql = snow_depth_sql(query)
+            user_question.data = query_bq_data(user_question.sql)
+
         st.session_state.sql.append({"question": query, "sql_query": user_question.sql})
         result = user_question.data
         #st.write(result)
