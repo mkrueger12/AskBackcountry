@@ -2,6 +2,7 @@ import os
 import json
 import dotenv
 import openai
+import streamlit
 from google.cloud import bigquery
 
 
@@ -22,6 +23,7 @@ class UserQuestion:
         self.data = None
         self.method = None
 
+    @streamlit.cache_data
     def method_selector(self):
 
         ''' Determines which function should be called based on the user's query.'''
@@ -43,6 +45,7 @@ class UserQuestion:
 
         return self.method
 
+    @streamlit.cache_data
     def snow_depth_sql(self):
         system_content = '''You are a helpful BigQuery SQL assistant. Write a BigQuery SQL query that will answer the user question below. If you are unable to determine a value for the query ask for more information. /
         <Available columns: Date (yyyy-mm-dd), latitude, longitude, snow_depth (do not use SUM()), new_snow (new snow since yesterday), elevation, state (state code like 'IL'  for Illinois, county (administrative subdivision of a state), station_name (Vail Mountain)>
@@ -84,6 +87,7 @@ class UserQuestion:
 
         return self.sql
 
+    @streamlit.cache_data
     def snow_depth_data(self):
         # Initialize a BigQuery client
         client = bigquery.Client(project='avalanche-analytics-project')
@@ -110,11 +114,4 @@ class UserQuestion:
             self.snow_depth_data()
         else:
             return ('Sorry, I could not find any results for your query.')
-
-
-######################
-
-user_question = UserQuestion("How much new snow has fallen in October 2023 in Eagle County?")
-user_question.run()
-
 

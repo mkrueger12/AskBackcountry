@@ -1,0 +1,8 @@
+- Prompt management
+- login page
+- store session state
+- automate data collection & updates
+- Pull in images/charts
+- Add comments
+- add tests
+- Caching
