@@ -17,18 +17,17 @@ with open('utils/functions.json', 'r') as json_file:
 
 class UserQuestion:
 
-    def __init__(self, question):
-        self.question = question
-        self.sql = None
-        self.data = None
-        self.method = None
+    def __init__(_self, question):
+        _self.question = question
+        _self.sql = None
+        _self.data = None
+        _self.method = None
 
-    @streamlit.cache_data
-    def method_selector(self):
+    def method_selector(_self):
 
         ''' Determines which function should be called based on the user's query.'''
 
-        messages = [{"role": "user", "content": self.question}]
+        messages = [{"role": "user", "content": _self.question}]
 
         response = openai.ChatCompletion.create(
             model="gpt-4",
@@ -41,33 +40,27 @@ class UserQuestion:
             functions=functions,
         )
 
-        self.method = response["choices"][0]["message"]["function_call"]['name']
+        _self.method = response["choices"][0]["message"]["function_call"]['name']
 
-        return self.method
+        return _self.method
 
-    @streamlit.cache_data
-    def snow_depth_sql(self):
-        system_content = '''You are a helpful BigQuery SQL assistant. Write a BigQuery SQL query that will answer the user question below. If you are unable to determine a value for the query ask for more information. /
-        <Available columns: Date (yyyy-mm-dd), latitude, longitude, snow_depth (do not use SUM()), new_snow (new snow since yesterday), elevation, state (state code like 'IL'  for Illinois, county (administrative subdivision of a state), station_name (Vail Mountain)>
-        <Available tables: `avalanche-analytics-project.historical_raw.snow-depth`>
-        If using the county and state columns, be sure that they are correct before returning an answer. Do not include a value if you do not know what the correct value is.
-        Do not assume anything in the query. Always LIMIT results when possible.
-        Return only the SQL query.'''
+    def snow_depth_sql(_self):
 
-        system_content = '''Given the following SQL tables, your job is to write queries given a user’s question. 
+        system_content = '''Given the following SQL tables, your job is to write prompts given a user’s question. 
                             CREATE TABLE `avalanche-analytics-project.historical_raw.snow-depth` (
-                            state STRING NULLABLE <state code like 'IL'  for Illinois>,
-                            county STRING NULLABLE <Used to determine station county or location, example: 'Eagle'>,
-                            latitude FLOAT NULLABLE,
-                            longitude FLOAT NULLABLE,
-                            elevation INTEGER NULLABLE,
-                            station_name STRING NULLABLE,
-                            station_id INTEGER NULLABLE,
+                            state STRING <example: 'IL'>,
+                            county STRING <Used to determine station county or location, example: 'Eagle'>,
+                            latitude FLOAT,
+                            longitude FLOAT,
+                            elevation INTEGER,
+                            station_name STRING <example: 'Schofield Pass'>,
+                            station_id INTEGER,
                             Date DATE NULLABLE <yyyy-mm-dd>,
-                            snow_depth FLOAT NULLABLE <do not use SUM()>,
-                            new_snow FLOAT NULLABLE <inches>);
+                            snow_depth FLOAT <do not use SUM()>,
+                            new_snow FLOAT <inches, only SUM() when GROUP BY station_name>);
                             
                             Use Google Standard SQL.
+                            Return only the SQL query.
                             Always LIMIT results when possible.'''
 
         completion = openai.ChatCompletion.create(
@@ -79,39 +72,54 @@ class UserQuestion:
             presence_penalty=0,
             messages=[
                 {"role": "system", "content": system_content},
-                {"role": "user", "content": self.question}
+                {"role": "user", "content": _self.question}
             ]
         )
 
-        self.sql = completion.choices[0].message['content']
+        _self.sql = completion.choices[0].message['content']
 
-        return self.sql
+        return _self.sql
 
-    @streamlit.cache_data
-    def snow_depth_data(self):
+    def snow_depth_data(_self):
         # Initialize a BigQuery client
         client = bigquery.Client(project='avalanche-analytics-project')
 
         try:
             # Perform a query.
-            QUERY = self.snow_depth_sql()
-            print(QUERY)
+            QUERY = _self.snow_depth_sql()
             query_job = client.query(QUERY)  # API request
             rows = query_job.result()  # Waits for query to finish
-            self.data = [dict(row.items()) for row in rows]
+            _self.data = [dict(row.items()) for row in rows]
 
             # Return the result
-            return self.data
+            return _self.data
         except Exception as e:
             # Handle exceptions, you might want to log the error or raise it again
             print(f"Error: {e}")
             return None
 
-    def run(self):
-        self.method_selector()
+    def run(_self):
+        _self.method_selector()
 
-        if self.method == 'snow_depth_data':
-            self.snow_depth_data()
+        if _self.method == 'snow_depth_data':
+            _self.snow_depth_data()
         else:
             return ('Sorry, I could not find any results for your query.')
 
+
+@streamlit.cache_data
+def response(data, question):
+    system_content = ('You are a helpful assistant. Answer the user question based on the context. '
+                      f'<context>: {data}'
+                      f'If you cannot answer the question, ask for more information. ')
+
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        temperature=0.3,
+        messages=[
+            {"role": "system", "content": system_content},
+            {"role": "user", "content": question}
+        ]
+    )
+
+    return completion.choices[0].message['content']

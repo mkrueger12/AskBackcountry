@@ -22,7 +22,7 @@ class SnowDepthQuestion:
         Do not assume anything in the query. Always LIMIT results when possible.
         Return only the SQL query.'''
 
-        system_content = '''Given the following SQL tables, your job is to write queries given a user’s question. 
+        system_content = '''Given the following SQL tables, your job is to write prompts given a user’s question. 
                             CREATE TABLE `avalanche-analytics-project.historical_raw.snow-depth` (
                             state STRING NULLABLE <state code like 'IL'  for Illinois>,
                             county STRING NULLABLE <Used to determine station county or location>,

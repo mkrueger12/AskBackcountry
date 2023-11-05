@@ -1,11 +1,10 @@
 import streamlit as st
-from helpers.SnowDepth import SnowDepthQuestion, get_response
-from helpers.UserQuestion import UserQuestion
+from helpers.UserQuestion import UserQuestion, response
 
 # Set Script
 st.title("💬 AskBackcountry")
 st.caption("🚀 An Adventure Planning Companion")
-#st.write(st.session_state)
+st.write(st.session_state)
 
 # set UI
 def clear_chat_history():
@@ -45,10 +44,9 @@ if query:
 
         if result is not None and len(result) > 0:
             st.write(":white_check_mark: Data Found")
-            st.write(":chart_with_upwards_trend: Analyzing")
-            msg = get_response(data=[result, user_question.sql], question=query)
-            st.session_state.messages.append({"role": "assistant", "content": msg})
-            st.chat_message('assistant').write(msg)
+            response = response([result, user_question.sql], query)
+            st.session_state.messages.append({"role": "assistant", "content": response})
+            st.chat_message('assistant').write(response)
 
         else:
             msg = ('Sorry, I could not find any results for your query.'
