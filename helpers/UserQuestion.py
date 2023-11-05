@@ -90,7 +90,8 @@ def clear_chat_history():
 
 @st.cache_data(persist=True, ttl='24h')
 def snow_depth_sql(question):
-    system_content = '''Given the following SQL tables, your job is to write prompts given a user’s question. 
+    system_content = '''Given the following SQL tables, your job is to write prompts given a user’s question.
+                        When a location is included in the user question, determine the state and county.
 
                             CREATE TABLE `avalanche-analytics-project.historical_raw.snow-depth` (
                             state STRING <example: 'IL'>,
