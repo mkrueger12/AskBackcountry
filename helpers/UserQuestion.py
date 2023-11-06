@@ -49,7 +49,7 @@ def upload_blob_from_memory(bucket_name, contents, destination_blob_name):
     bucket = storage_client.bucket(bucket_name)
 
     current_datetime = datetime.datetime.now()
-    formatted_datetime = current_datetime.strftime('%Y-%m-%d_%H-%M-%S')
+    formatted_datetime = current_datetime.strftime('%Y-%m-%d_%H-%M-%S-%f')[:-3]
 
     destination_blob_name = f'{destination_blob_name}/{formatted_datetime}.json'
     blob = bucket.blob(destination_blob_name)

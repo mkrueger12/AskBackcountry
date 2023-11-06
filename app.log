@@ -42,3 +42,23 @@
 2023-11-06 08:54:24,916 - ERROR - Error occurred: Expecting value: line 1 column 1 (char 0)
 2023-11-06 08:54:24,917 - ERROR - Error occurred: 'NoneType' object is not subscriptable
 2023-11-06 08:54:26,517 - INFO - File uploaded to gs://ask-bc-analytics/errors/2023-11-06_08-54-25.json
+2023-11-06 08:57:27,370 - INFO - User query: what is the weather a vail mountain tomorrow?
+2023-11-06 08:57:27,377 - INFO - Method selected: weather_forecast
+2023-11-06 08:57:27,378 - ERROR - Error occurred: Expecting value: line 1 column 1 (char 0)
+2023-11-06 08:57:27,381 - ERROR - An error occurred:
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/app.py", line 77, in <module>
+    lat = user_question.location['latitude']
+TypeError: 'NoneType' object is not subscriptable
+2023-11-06 08:57:27,387 - ERROR - Error occurred: 'NoneType' object is not subscriptable
+2023-11-06 08:57:28,866 - INFO - File uploaded to gs://ask-bc-analytics/errors/2023-11-06_08-57-28.json
+2023-11-06 09:00:37,307 - INFO - User query: what is the weather a vail mountain tomorrow?
+2023-11-06 09:00:37,319 - INFO - Method selected: weather_forecast
+2023-11-06 09:00:37,321 - ERROR - Error occurred: Expecting value: line 1 column 1 (char 0)
+2023-11-06 09:00:37,323 - ERROR - An error occurred:
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/app.py", line 78, in <module>
+    lat = user_question.location['latitude']
+TypeError: 'NoneType' object is not subscriptable
+2023-11-06 09:00:37,324 - ERROR - Error occurred: 'NoneType' object is not subscriptable
+2023-11-06 09:00:38,917 - INFO - File uploaded to gs://ask-bc-analytics/errors/2023-11-06_09-00-38.json
