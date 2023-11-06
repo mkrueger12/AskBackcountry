@@ -2,10 +2,13 @@ import os
 import json
 import requests
 import logging
+import asyncio
+import datetime
 import dotenv
 import openai
 import streamlit as st
 from google.cloud import bigquery
+from google.cloud import storage
 
 
 dotenv.load_dotenv('.env')
@@ -21,7 +24,6 @@ with open('utils/functions.json', 'r') as json_file:
     functions = json.load(json_file)
 
 
-
 class UserQuestion:
 
     def __init__(_self, question):
@@ -30,6 +32,36 @@ class UserQuestion:
         _self.data = None
         _self.method = None
         _self.location = None
+
+
+async def upload_blob_from_memory(bucket_name, contents, destination_blob_name):
+    """Uploads a file to the bucket."""
+
+    # The ID of your GCS bucket
+    # bucket_name = "your-bucket-name"
+
+    # The contents to upload to the file
+    # contents = "these are my contents"
+
+    # The ID of your GCS object
+    # destination_blob_name = "storage-object-name"
+    storage_client = storage.Client(project='avalanche-analytics-project')
+    bucket = storage_client.bucket(bucket_name)
+
+    current_datetime = datetime.datetime.now()
+    formatted_datetime = current_datetime.strftime('%Y-%m-%d_%H-%M-%S')
+
+    destination_blob_name = f'{destination_blob_name}/{formatted_datetime}.json'
+    blob = bucket.blob(destination_blob_name)
+
+    blob.upload_from_string(contents)
+
+    logging.info(f'File uploaded to gs://{bucket_name}/{destination_blob_name}')
+
+    print(
+        f"{destination_blob_name} uploaded to {bucket_name}."
+    )
+
 
 
 @st.cache_data(ttl='24h')

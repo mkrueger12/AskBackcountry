@@ -1,7 +1,7 @@
 import streamlit as st
 import json
 import logging
-from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data, clear_chat_history, location_extraction, weather_forecast
+from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data, clear_chat_history, location_extraction, weather_forecast, upload_blob_from_memory
 
 
 ################### SET LOGGING ###################
@@ -20,9 +20,10 @@ st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
 
 ################## INITIALIZE SESSION STATE ##################
 
-if ["sql", "method"] not in st.session_state:
+if ["sql", "method", "errors"] not in st.session_state:
     st.session_state['sql'] = [{"question": None, "sql_query": None}]
     st.session_state['method'] = [{"question": None, "method": None}]
+    st.session_state['error'] = [{"question": None, "error": None}]
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -62,7 +63,6 @@ try:
             except Exception as e:
                 logging.error(f"Error occurred: {str(e)}")
                 st.error('Sorry, I could not determine the location. Please add more info like what state it is located in.', icon="🚨")
-                st.stop()
 
             ######## COLLECT THE CORRECT DATA ########
 
@@ -97,4 +97,6 @@ try:
 except Exception as e:
 
     logging.error(f"Error occurred: {str(e)}")
+    st.session_state.error.append = [{"question": user_question.question, "error": str(e)}]
+    upload_blob_from_memory(bucket_name='ask-bc-analytics', contents=json.dumps(st.session_state.error), destination_blob_name='errors')
     st.error('Sorry, something went wrong. Please refresh and try again.', icon="🚨")
