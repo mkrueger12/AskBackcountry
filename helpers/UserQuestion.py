@@ -1,6 +1,7 @@
 import os
 import json
 import requests
+import logging
 import dotenv
 import openai
 import streamlit as st
@@ -29,11 +30,14 @@ class UserQuestion:
 
 @st.cache_data(ttl='24h')
 def response(data, question):
+
+    '''Generates a response to the user's question based on the data provided.'''
+
     system_content = ('You are a helpful assistant. Answer the user question based on the context below. Consider summarizing the context.'
                       ' '
                       f'<context> {data} <context> ')
 
-    print(system_content)
+    logging.info(f"Generating response - System Context: {system_content}")
 
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -83,7 +87,7 @@ def query_bq_data(sql_query):
         return data
     except Exception as e:
         # Handle exceptions, you might want to log the error or raise it again
-        print(f"Error: {e}")
+        logging.error(f"Error: {e}")
         return None
 
 
