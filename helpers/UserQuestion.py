@@ -12,6 +12,10 @@ dotenv.load_dotenv('.env')
 
 openai.api_key = os.getenv('OPENAI_KEY')
 
+logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger()
+logger.addHandler(logging.StreamHandler())  # Add a stream handler to log to the console
+
 # Open the JSON file and load its content into a dictionary
 with open('utils/functions.json', 'r') as json_file:
     functions = json.load(json_file)
@@ -100,15 +104,15 @@ def clear_chat_history():
 def location_extraction(question):
     system_content = ('You will be provided with a text, and your task is to extract the county, state, elevation, latitude, and longitude from it.'
                       'Do not attempt to answer the question. Only extract the location information.'
-                      'If you are unsure return None'
+                      'If you are unsure return None. '
                       '#### Example ###'
-                      'Text: How much snow is at Loveland Pass?'
-                      'Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900, "latitude": 39.6806, "longitude": -105.8972}')
+                      ' Text: How much snow is at Loveland Pass?'
+                      ' Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900, "latitude": 39.6806, "longitude": -105.8972}')
 
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         temperature=0,
-        max_tokens=512,
+        max_tokens=200,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
@@ -118,11 +122,17 @@ def location_extraction(question):
         ]
     )
 
-    return completion.choices[0].message['content']
+    output = completion.choices[0].message['content']
+
+    logging.info(f"Location extraction - System Context: {system_content}, Output: {output}")
+
+    return output
 
 
 @st.cache_data(ttl='1h')
 def weather_forecast(latitude, longitude):
+
+    logging.info(f"Getting weather_forecast for Latitude: {latitude}, Longitude: {longitude}")
 
     url = f'https://api.weather.gov/points/{latitude},{longitude}'
     response = requests.get(url)

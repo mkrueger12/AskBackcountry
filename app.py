@@ -9,6 +9,7 @@ from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_
 logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
+
 ################### SET UI COMPONENTS ###################
 
 st.title("💬 AskBackcountry")
@@ -52,10 +53,16 @@ try:
             st.session_state.method.append({"question": query, "method": user_question.method})
 
             logging.info(f"Method selected: {user_question.method}")
+            try:
 
-            user_question.location = json.loads(location_extraction(user_question.question))  # Extract location from user question
-            query = (user_question.question + ' Additional context:' + user_question.location['county'] + ' ' + user_question.location['state']
-                     + ' Elevation: ' + str(user_question.location['elevation']))
+                user_question.location = json.loads(location_extraction(user_question.question))  # Extract location from user question
+                query = (user_question.question + ' Additional context:' + user_question.location['county'] + ' ' + user_question.location['state']
+                         + ' Elevation: ' + str(user_question.location['elevation']))
+
+            except Exception as e:
+                logging.error(f"Error occurred: {str(e)}")
+                st.error('Sorry, I could not determine the location. Please add more info like what state it is located in.', icon="🚨")
+                st.stop()
 
             ######## COLLECT THE CORRECT DATA ########
 
@@ -70,7 +77,6 @@ try:
                 lat = user_question.location['latitude']
                 lon = user_question.location['longitude']
                 user_question.data = 'Forecast: ' + str(weather_forecast(lat, lon))
-                logging.info(f"Weather forecast for Latitude: {lat}, Longitude: {lon}")
 
             st.session_state.sql.append({"question": query, "sql_query": user_question.sql})
             result = user_question.data
@@ -89,5 +95,6 @@ try:
                 st.chat_message('assistant').write(msg)
 
 except Exception as e:
+
     logging.error(f"Error occurred: {str(e)}")
     st.error('Sorry, something went wrong. Please refresh and try again.', icon="🚨")
