@@ -75,3 +75,395 @@ Traceback (most recent call last):
 TypeError: 'NoneType' object is not subscriptable
 2023-11-06 09:36:44,322 - ERROR - Error occurred: 'NoneType' object is not subscriptable
 2023-11-06 09:36:45,753 - INFO - File uploaded to gs://ask-bc-analytics/errors/2023-11-06_09-36-45-074.json
+2023-11-06 10:39:34,490 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 10:39:37,656 - INFO - Method selected: snow_depth_data
+2023-11-06 10:39:41,725 - INFO - Location extraction - System Context: You will be provided with a text, and your task is to extract the county, state, elevation, latitude, and longitude from it.Do not attempt to answer the question. Only extract the location information.If you are unsure return None. #### Example ### Text: How much snow is at Loveland Pass? Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900, "latitude": 39.6806, "longitude": -105.8972}, Output: {"county": "Clear Creek", "state": "CO", "elevation": 11314, "latitude": 39.7972, "longitude": -105.7778}
+2023-11-06 10:39:57,728 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 10:40:01,585 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_10-40-00-980.json
+2023-11-06 10:40:01,590 - INFO - Generating response - System Context: You are a helpful assistant. Answer the user question based on the context below. Consider summarizing the context. <context> [[{'average_snow_depth': 6.0}]] <context> 
+2023-11-06 10:40:05,814 - INFO - File uploaded to gs://ask-bc-analytics/feedback/2023-11-06_10-40-05-237.json
+2023-11-06 10:42:30,422 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 10:42:30,436 - INFO - Method selected: snow_depth_data
+2023-11-06 10:42:30,449 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 10:42:31,818 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_10-42-31-235.json
+2023-11-06 10:45:42,339 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 10:45:42,356 - INFO - Method selected: snow_depth_data
+2023-11-06 10:45:42,365 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 10:45:43,856 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_10-45-43-147.json
+2023-11-06 10:49:41,664 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 10:49:41,677 - INFO - Method selected: snow_depth_data
+2023-11-06 10:49:41,696 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 10:49:43,081 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_10-49-42-500.json
+2023-11-06 10:50:49,353 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 10:50:49,366 - INFO - Method selected: snow_depth_data
+2023-11-06 10:50:49,369 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 10:50:50,728 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_10-50-50-208.json
+2023-11-06 10:53:52,765 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 10:53:52,773 - INFO - Method selected: snow_depth_data
+2023-11-06 10:53:52,778 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 10:53:54,269 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_10-53-53-608.json
+2023-11-06 10:54:05,973 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 10:54:05,977 - INFO - Method selected: snow_depth_data
+2023-11-06 10:54:05,983 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 10:54:07,276 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_10-54-06-755.json
+2023-11-06 10:55:24,818 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 10:55:24,824 - INFO - Method selected: snow_depth_data
+2023-11-06 10:55:24,832 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 10:55:26,227 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_10-55-25-578.json
+2023-11-06 10:57:28,792 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 10:57:28,801 - INFO - Method selected: snow_depth_data
+2023-11-06 10:57:28,805 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 10:57:30,138 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_10-57-29-564.json
+2023-11-06 10:59:46,160 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 10:59:46,165 - INFO - Method selected: snow_depth_data
+2023-11-06 10:59:46,168 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 10:59:47,459 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_10-59-46-962.json
+2023-11-06 11:00:27,122 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 11:00:27,127 - INFO - Method selected: snow_depth_data
+2023-11-06 11:00:27,131 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 11:00:28,464 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_11-00-27-879.json
+2023-11-06 11:03:42,863 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 11:03:46,057 - INFO - Method selected: snow_depth_data
+2023-11-06 11:03:50,153 - INFO - Location extraction - System Context: You will be provided with a text, and your task is to extract the county, state, elevation, latitude, and longitude from it.Do not attempt to answer the question. Only extract the location information.If you are unsure return None. #### Example ### Text: How much snow is at Loveland Pass? Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900, "latitude": 39.6806, "longitude": -105.8972}, Output: {"county": "Clear Creek", "state": "CO", "elevation": 11314, "latitude": 39.7972, "longitude": -105.7778}
+2023-11-06 11:04:01,406 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 11:04:05,093 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_11-04-04-577.json
+2023-11-06 11:04:05,095 - INFO - Generating response - System Context: You are a helpful assistant. Answer the user question based on the context below. Consider summarizing the context. <context> [[{'average_snow_depth': 6.0}]] <context> 
+2023-11-06 13:56:17,162 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 13:56:17,175 - INFO - Method selected: snow_depth_data
+2023-11-06 13:56:30,270 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 13:56:34,287 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_13-56-33-684.json
+2023-11-06 13:56:34,294 - INFO - Generating response - System Context: You are a helpful assistant. Answer the user question based on the context below. Consider summarizing the context. <context> [[{'average_snow_depth': 6.0}]] <context> 
+2023-11-06 14:04:48,686 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 14:04:48,691 - INFO - Method selected: snow_depth_data
+2023-11-06 14:04:48,694 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 14:04:50,079 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_14-04-49-441.json
+2023-11-06 14:08:37,865 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 14:08:37,873 - INFO - Method selected: snow_depth_data
+2023-11-06 14:08:37,876 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 14:08:39,354 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_14-08-38-643.json
+2023-11-06 14:08:39,360 - ERROR - An error occurred:
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/app.py", line 106, in <module>
+    kwargs={'bucket_name': 'ask-bc-analytics', 'destination_blob_name': 'feedback', 'contents': feedback}
+NameError: name 'feedback' is not defined
+2023-11-06 14:08:39,364 - ERROR - Error occurred: name 'feedback' is not defined
+2023-11-06 14:08:40,684 - INFO - File uploaded to gs://ask-bc-analytics/errors/2023-11-06_14-08-40-088.json
+2023-11-06 14:09:39,574 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 14:09:39,579 - INFO - Method selected: snow_depth_data
+2023-11-06 14:09:39,584 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 14:09:41,209 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_14-09-40-461.json
+2023-11-06 14:15:52,530 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 14:15:52,537 - INFO - Method selected: snow_depth_data
+2023-11-06 14:15:52,545 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 14:15:54,158 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_14-15-53-283.json
+2023-11-06 14:17:50,390 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 14:17:50,396 - INFO - Method selected: snow_depth_data
+2023-11-06 14:17:50,402 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 14:17:52,217 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_14-17-51-225.json
+2023-11-06 14:20:12,440 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 14:20:12,446 - INFO - Method selected: snow_depth_data
+2023-11-06 14:20:12,449 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 14:20:14,246 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_14-20-13-263.json
+2023-11-06 14:24:48,100 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 14:24:48,106 - INFO - Method selected: snow_depth_data
+2023-11-06 14:24:48,110 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 14:24:49,604 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_14-24-48-866.json
+2023-11-06 14:25:57,852 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 14:25:57,858 - INFO - Method selected: snow_depth_data
+2023-11-06 14:25:57,864 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 14:25:59,430 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_14-25-58-749.json
+2023-11-06 14:25:59,434 - ERROR - An error occurred:
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/app.py", line 103, in <module>
+    st.button("Good Answer", type="primary", on_click=asyncio.run(upload_blob_from_memory),
+  File "/usr/lib/python3.10/asyncio/runners.py", line 37, in run
+    raise ValueError("a coroutine was expected, got {!r}".format(main))
+ValueError: a coroutine was expected, got <function upload_blob_from_memory at 0x7f9f542157e0>
+2023-11-06 14:25:59,436 - ERROR - Error occurred: a coroutine was expected, got <function upload_blob_from_memory at 0x7f9f542157e0>
+2023-11-06 14:26:00,926 - INFO - File uploaded to gs://ask-bc-analytics/errors/2023-11-06_14-26-00-300.json
+2023-11-06 14:26:44,001 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 14:26:44,006 - INFO - Method selected: snow_depth_data
+2023-11-06 14:26:44,010 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 14:26:45,538 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_14-26-44-899.json
+2023-11-06 14:26:45,542 - ERROR - An error occurred:
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/app.py", line 91, in <module>
+    asyncio.run(
+  File "/usr/lib/python3.10/asyncio/runners.py", line 37, in run
+    raise ValueError("a coroutine was expected, got {!r}".format(main))
+ValueError: a coroutine was expected, got None
+2023-11-06 14:26:45,546 - ERROR - Error occurred: a coroutine was expected, got None
+2023-11-06 14:26:46,986 - INFO - File uploaded to gs://ask-bc-analytics/errors/2023-11-06_14-26-46-292.json
+2023-11-06 14:27:54,956 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 14:27:54,971 - INFO - Method selected: snow_depth_data
+2023-11-06 14:27:55,007 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 14:27:56,530 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_14-27-55-839.json
+2023-11-06 14:29:37,748 - INFO - User query: How much snow is at Berthoud Pass?
+2023-11-06 14:29:37,753 - INFO - Method selected: snow_depth_data
+2023-11-06 14:29:37,757 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(Date) AS max_date
+  FROM `avalanche-analytics-project.historical_raw.snow-depth`
+  WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8314
+)
+
+SELECT AVG(snow_depth) AS average_snow_depth
+FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
+JOIN LatestDate AS ld
+ON s.Date = ld.max_date
+WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8314
+LIMIT 1;
+2023-11-06 14:29:39,274 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_14-29-38-546.json
+2023-11-06 14:29:42,625 - INFO - File uploaded to gs://ask-bc-analytics/feedback/2023-11-06_14-29-42-029.json

@@ -4,6 +4,7 @@ import traceback
 import logging
 import asyncio
 from trubrics.integrations.streamlit import FeedbackCollector
+from streamlit_feedback import streamlit_feedback
 from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data, clear_chat_history, location_extraction, weather_forecast, upload_blob_from_memory
 
 
@@ -17,7 +18,7 @@ logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s 
 
 st.title("💬 AskBackcountry")
 st.caption("🚀 An Adventure Planning Companion")
-#st.write(st.session_state)
+st.write(st.session_state)
 
 st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
 
@@ -31,6 +32,7 @@ if ["sql", "method", "errors"] not in st.session_state:
     st.session_state['method'] = [{"question": None, "method": None}]
     st.session_state['error'] = [{"question": None, "error": None, "traceback": None}]
     st.session_state['primary'] = [{"question": None, "response": None, "feedback": None}]
+    st.session_state['feedback_submitted_thumbs'] = []
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -86,9 +88,9 @@ try:
                 user_question.data = 'Forecast: ' + str(weather_forecast(lat, lon))
 
             st.session_state.sql.append({"question": query, "sql_query": user_question.sql})
-            asyncio.run(
-                upload_blob_from_memory(bucket_name='ask-bc-analytics', contents=json.dumps(st.session_state.sql),
-                                        destination_blob_name='sql-queries'))
+
+            upload_blob_from_memory(bucket_name='ask-bc-analytics', contents=json.dumps(st.session_state.sql),
+                                        destination_blob_name='sql-queries')
             result = user_question.data
             #st.write(result)
 
@@ -97,17 +99,14 @@ try:
                 response = response([user_question.data], user_question.question)
                 st.session_state.messages.append({"role": "assistant", "content": response})
                 st.chat_message('assistant').write(response)
-                user_feedback = collector.st_feedback(
-                    component="default",
-                    feedback_type="thumbs",
-                    model="gpt-3.5-turbo"
-                )
 
-                st.session_state.primary.append({"question": user_question.question, "response": response, "feedback": user_feedback})
+                st.button("Good Answer", type="primary", on_click=upload_blob_from_memory,
+                          kwargs=dict(bucket_name='ask-bc-analytics', contents=json.dumps({"question": user_question.question, "response": response, "feedback": 'good'}), destination_blob_name='feedback'))
 
-                asyncio.run(
-                    upload_blob_from_memory(bucket_name='ask-bc-analytics', contents=json.dumps(st.session_state.primary),
-                                            destination_blob_name='feedback'))
+                st.button("Bad Answer", type="primary", on_click=upload_blob_from_memory,
+                          kwargs=dict(bucket_name='ask-bc-analytics', contents=json.dumps(
+                              {"question": user_question.question, "response": response, "feedback": 'bad'}),
+                                      destination_blob_name='feedback'))
 
             else:
                 msg = ('Sorry, I could not find any results for your query.'
@@ -120,5 +119,5 @@ except Exception as e:
     logging.exception("An error occurred:")
     logging.error(f"Error occurred: {str(e)}")
     st.session_state.error.append({"question": user_question.question, "error": str(e), "traceback": traceback.format_exc()})
-    asyncio.run(upload_blob_from_memory(bucket_name='ask-bc-analytics', contents=json.dumps(st.session_state.error), destination_blob_name='errors'))
+    upload_blob_from_memory(bucket_name='ask-bc-analytics', contents=json.dumps(st.session_state.error), destination_blob_name='errors')
     st.error('Sorry, something went wrong. Please refresh and try again.', icon="🚨")
