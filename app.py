@@ -97,6 +97,6 @@ try:
 except Exception as e:
 
     logging.error(f"Error occurred: {str(e)}")
-    st.session_state.error.append = [{"question": user_question.question, "error": str(e)}]
+    st.session_state.error.append({"question": user_question.question, "error": str(e)})
     upload_blob_from_memory(bucket_name='ask-bc-analytics', contents=json.dumps(st.session_state.error), destination_blob_name='errors')
     st.error('Sorry, something went wrong. Please refresh and try again.', icon="🚨")

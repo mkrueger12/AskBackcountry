@@ -34,7 +34,7 @@ class UserQuestion:
         _self.location = None
 
 
-async def upload_blob_from_memory(bucket_name, contents, destination_blob_name):
+def upload_blob_from_memory(bucket_name, contents, destination_blob_name):
     """Uploads a file to the bucket."""
 
     # The ID of your GCS bucket
