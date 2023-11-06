@@ -13,8 +13,9 @@ st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
 
 ################## INITIALIZE SESSION STATE ##################
 
-if "sql" not in st.session_state:
+if ["sql", "method"] not in st.session_state:
     st.session_state['sql'] = [{"question": None, "sql_query": None}]
+    st.session_state['method'] = [{"question": None, "method": None}]
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -40,6 +41,7 @@ if query:
     with st.spinner(":brain: Thinking..."):
         user_question = UserQuestion(query)
         user_question.method = method_selector(user_question.question)  # Collect data for the user question
+        st.session_state.method.append({"question": query, "method": user_question.method})
         user_question.location = json.loads(location_extraction(user_question.question))  # Extract location from user question
         query = (user_question.question + ' Additional context:' + user_question.location['county'] + ' ' + user_question.location['state']
                  + ' Elevation: ' + str(user_question.location['elevation']))

@@ -7,7 +7,7 @@ import streamlit as st
 from google.cloud import bigquery
 
 
-dotenv.load_dotenv('utils/.env')
+dotenv.load_dotenv('.env')
 
 openai.api_key = os.getenv('OPENAI_KEY')
 
@@ -96,7 +96,7 @@ def clear_chat_history():
 def location_extraction(question):
     system_content = ('You will be provided with a text, and your task is to extract the county, state, elevation, latitude, and longitude from it.'
                       'Do not attempt to answer the question. Only extract the location information.'
-                      'If you are unsure return None for the given field.'
+                      'If you are unsure return None'
                       '#### Example ###'
                       'Text: How much snow is at Loveland Pass?'
                       'Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900, "latitude": 39.6806, "longitude": -105.8972}')
