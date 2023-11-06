@@ -62,3 +62,16 @@ Traceback (most recent call last):
 TypeError: 'NoneType' object is not subscriptable
 2023-11-06 09:00:37,324 - ERROR - Error occurred: 'NoneType' object is not subscriptable
 2023-11-06 09:00:38,917 - INFO - File uploaded to gs://ask-bc-analytics/errors/2023-11-06_09-00-38.json
+2023-11-06 09:35:17,432 - INFO - User query: What is the weather a vail mountain tomorrow?
+2023-11-06 09:35:17,450 - INFO - Method selected: weather_forecast
+2023-11-06 09:36:43,244 - INFO - User query: What is the weather a vail mountain tomorrow?
+2023-11-06 09:36:43,249 - INFO - Method selected: weather_forecast
+2023-11-06 09:36:44,317 - INFO - Location extraction - System Context: You will be provided with a text, and your task is to extract the county, state, elevation, latitude, and longitude from it.Do not attempt to answer the question. Only extract the location information.If you are unsure return None. #### Example ### Text: How much snow is at Loveland Pass? Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900, "latitude": 39.6806, "longitude": -105.8972}, Output: None
+2023-11-06 09:36:44,320 - ERROR - Error occurred: Expecting value: line 1 column 1 (char 0)
+2023-11-06 09:36:44,322 - ERROR - An error occurred:
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/app.py", line 79, in <module>
+    lat = user_question.location['latitude']
+TypeError: 'NoneType' object is not subscriptable
+2023-11-06 09:36:44,322 - ERROR - Error occurred: 'NoneType' object is not subscriptable
+2023-11-06 09:36:45,753 - INFO - File uploaded to gs://ask-bc-analytics/errors/2023-11-06_09-36-45-074.json

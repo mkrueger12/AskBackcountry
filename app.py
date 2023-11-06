@@ -2,6 +2,7 @@ import streamlit as st
 import json
 import traceback
 import logging
+import asyncio
 from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data, clear_chat_history, location_extraction, weather_forecast, upload_blob_from_memory
 
 
@@ -100,5 +101,5 @@ except Exception as e:
     logging.exception("An error occurred:")
     logging.error(f"Error occurred: {str(e)}")
     st.session_state.error.append({"question": user_question.question, "error": str(e), "traceback": traceback.format_exc()})
-    upload_blob_from_memory(bucket_name='ask-bc-analytics', contents=json.dumps(st.session_state.error), destination_blob_name='errors')
+    asyncio.run(upload_blob_from_memory(bucket_name='ask-bc-analytics', contents=json.dumps(st.session_state.error), destination_blob_name='errors'))
     st.error('Sorry, something went wrong. Please refresh and try again.', icon="🚨")

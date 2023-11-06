@@ -2,7 +2,6 @@ import os
 import json
 import requests
 import logging
-import asyncio
 import datetime
 import dotenv
 import openai
@@ -34,7 +33,7 @@ class UserQuestion:
         _self.location = None
 
 
-def upload_blob_from_memory(bucket_name, contents, destination_blob_name):
+async def upload_blob_from_memory(bucket_name, contents, destination_blob_name):
     """Uploads a file to the bucket."""
 
     # The ID of your GCS bucket
