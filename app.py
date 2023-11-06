@@ -3,6 +3,7 @@ import json
 import traceback
 import logging
 import asyncio
+from trubrics.integrations.streamlit import FeedbackCollector
 from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data, clear_chat_history, location_extraction, weather_forecast, upload_blob_from_memory
 
 
@@ -20,12 +21,16 @@ st.caption("🚀 An Adventure Planning Companion")
 
 st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
 
+collector = FeedbackCollector(project='default', email='mkrueger190@gmail.com', password='eFAivz%y%rc7n54')
+
+
 ################## INITIALIZE SESSION STATE ##################
 
 if ["sql", "method", "errors"] not in st.session_state:
     st.session_state['sql'] = [{"question": None, "sql_query": None}]
     st.session_state['method'] = [{"question": None, "method": None}]
     st.session_state['error'] = [{"question": None, "error": None, "traceback": None}]
+    st.session_state['primary'] = [{"question": None, "response": None, "feedback": None}]
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -92,6 +97,17 @@ try:
                 response = response([user_question.data], user_question.question)
                 st.session_state.messages.append({"role": "assistant", "content": response})
                 st.chat_message('assistant').write(response)
+                user_feedback = collector.st_feedback(
+                    component="default",
+                    feedback_type="thumbs",
+                    model="gpt-3.5-turbo"
+                )
+
+                st.session_state.primary.append({"question": user_question.question, "response": response, "feedback": user_feedback})
+
+                asyncio.run(
+                    upload_blob_from_memory(bucket_name='ask-bc-analytics', contents=json.dumps(st.session_state.primary),
+                                            destination_blob_name='feedback'))
 
             else:
                 msg = ('Sorry, I could not find any results for your query.'
