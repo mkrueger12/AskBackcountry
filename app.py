@@ -81,6 +81,9 @@ try:
                 user_question.data = 'Forecast: ' + str(weather_forecast(lat, lon))
 
             st.session_state.sql.append({"question": query, "sql_query": user_question.sql})
+            asyncio.run(
+                upload_blob_from_memory(bucket_name='ask-bc-analytics', contents=json.dumps(st.session_state.sql),
+                                        destination_blob_name='sql-queries'))
             result = user_question.data
             #st.write(result)
 

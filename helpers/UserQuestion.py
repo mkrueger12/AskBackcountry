@@ -183,7 +183,7 @@ def snow_depth_sql(question):
                             county STRING <Used to determine station county or location, example: 'Eagle'>,
                             latitude FLOAT,
                             longitude FLOAT,
-                            elevation INTEGER,
+                            elevation INTEGER <Should always be 3000 lower than the elevation provided in the context>,
                             station_id INTEGER,
                             station_name STRING <only use if station mentioned by user, example: 'Vail Mountain'>,
                             Date DATE NULLABLE <yyyy-mm-dd>,
@@ -196,14 +196,14 @@ def snow_depth_sql(question):
                             Response:   WITH LatestDate AS (
                                                           SELECT MAX(Date) AS max_date
                                                           FROM `avalanche-analytics-project.historical_raw.snow-depth`
-                                                          WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 9900
+                                                          WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8900
                                                         )
                                                         
                                                         SELECT AVG(snow_depth) AS average_snow_depth
                                                         FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
                                                         JOIN LatestDate AS ld
                                                         ON s.Date = ld.max_date
-                                                        WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 9900;
+                                                        WHERE s.county = 'Clear Creek' AND s.state = 'CO' AND s.elevation > 8900;
                                                                     
                             <example>
 
