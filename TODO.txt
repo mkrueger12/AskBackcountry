@@ -1,5 +1,6 @@
 1. error handling
 2. remove verbose error messages
+3. Analytics
 3. Charts/Images?
 
 - Prompt management

@@ -1,20 +1,26 @@
 import os
 import json
 import requests
+import logging
+import datetime
 import dotenv
 import openai
 import streamlit as st
 from google.cloud import bigquery
+from google.cloud import storage
 
 
 dotenv.load_dotenv('.env')
 
 openai.api_key = os.getenv('OPENAI_KEY')
 
+logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger()
+logger.addHandler(logging.StreamHandler())  # Add a stream handler to log to the console
+
 # Open the JSON file and load its content into a dictionary
 with open('utils/functions.json', 'r') as json_file:
     functions = json.load(json_file)
-
 
 
 class UserQuestion:
@@ -27,13 +33,46 @@ class UserQuestion:
         _self.location = None
 
 
+async def upload_blob_from_memory(bucket_name, contents, destination_blob_name):
+    """Uploads a file to the bucket."""
+
+    # The ID of your GCS bucket
+    # bucket_name = "your-bucket-name"
+
+    # The contents to upload to the file
+    # contents = "these are my contents"
+
+    # The ID of your GCS object
+    # destination_blob_name = "storage-object-name"
+    storage_client = storage.Client(project='avalanche-analytics-project')
+    bucket = storage_client.bucket(bucket_name)
+
+    current_datetime = datetime.datetime.now()
+    formatted_datetime = current_datetime.strftime('%Y-%m-%d_%H-%M-%S-%f')[:-3]
+
+    destination_blob_name = f'{destination_blob_name}/{formatted_datetime}.json'
+    blob = bucket.blob(destination_blob_name)
+
+    blob.upload_from_string(contents)
+
+    logging.info(f'File uploaded to gs://{bucket_name}/{destination_blob_name}')
+
+    print(
+        f"{destination_blob_name} uploaded to {bucket_name}."
+    )
+
+
+
 @st.cache_data(ttl='24h')
 def response(data, question):
+
+    '''Generates a response to the user's question based on the data provided.'''
+
     system_content = ('You are a helpful assistant. Answer the user question based on the context below. Consider summarizing the context.'
                       ' '
                       f'<context> {data} <context> ')
 
-    print(system_content)
+    logging.info(f"Generating response - System Context: {system_content}")
 
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
@@ -83,7 +122,7 @@ def query_bq_data(sql_query):
         return data
     except Exception as e:
         # Handle exceptions, you might want to log the error or raise it again
-        print(f"Error: {e}")
+        logging.error(f"Error: {e}")
         return None
 
 
@@ -96,15 +135,15 @@ def clear_chat_history():
 def location_extraction(question):
     system_content = ('You will be provided with a text, and your task is to extract the county, state, elevation, latitude, and longitude from it.'
                       'Do not attempt to answer the question. Only extract the location information.'
-                      'If you are unsure return None'
+                      'If you are unsure return None. '
                       '#### Example ###'
-                      'Text: How much snow is at Loveland Pass?'
-                      'Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900, "latitude": 39.6806, "longitude": -105.8972}')
+                      ' Text: How much snow is at Loveland Pass?'
+                      ' Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900, "latitude": 39.6806, "longitude": -105.8972}')
 
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         temperature=0,
-        max_tokens=512,
+        max_tokens=200,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
@@ -114,11 +153,17 @@ def location_extraction(question):
         ]
     )
 
-    return completion.choices[0].message['content']
+    output = completion.choices[0].message['content']
+
+    logging.info(f"Location extraction - System Context: {system_content}, Output: {output}")
+
+    return output
 
 
 @st.cache_data(ttl='1h')
 def weather_forecast(latitude, longitude):
+
+    logging.info(f"Getting weather_forecast for Latitude: {latitude}, Longitude: {longitude}")
 
     url = f'https://api.weather.gov/points/{latitude},{longitude}'
     response = requests.get(url)
