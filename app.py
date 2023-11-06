@@ -1,6 +1,12 @@
 import streamlit as st
 import json
+import logging
 from helpers.UserQuestion import UserQuestion, response, snow_depth_sql, method_selector, query_bq_data, clear_chat_history, location_extraction, weather_forecast
+
+
+################### SET LOGGING ###################
+# Configure logging
+logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 
 ################### SET UI COMPONENTS ###################
@@ -32,44 +38,56 @@ for message in st.session_state.messages:
 
 # Get user input
 query = st.chat_input("How much snow is at Berthoud Pass?")
+try:
+    if query:
 
-if query:
+        logging.info(f"User query: {query}")
 
-    st.session_state.messages.append({"role": "user", "content": query})
-    st.chat_message('user').write(query)
+        st.session_state.messages.append({"role": "user", "content": query})
+        st.chat_message('user').write(query)
 
-    with st.spinner(":brain: Thinking..."):
-        user_question = UserQuestion(query)
-        user_question.method = method_selector(user_question.question)  # Collect data for the user question
-        st.session_state.method.append({"question": query, "method": user_question.method})
-        user_question.location = json.loads(location_extraction(user_question.question))  # Extract location from user question
-        query = (user_question.question + ' Additional context:' + user_question.location['county'] + ' ' + user_question.location['state']
-                 + ' Elevation: ' + str(user_question.location['elevation']))
+        with st.spinner(":brain: Thinking..."):
+            user_question = UserQuestion(query)
+            user_question.method = method_selector(user_question.question)  # Collect data for the user question
+            st.session_state.method.append({"question": query, "method": user_question.method})
 
-        ######## COLLECT THE CORRECT DATA ########
+            logging.info(f"Method selected: {user_question.method}")
 
-        if user_question.method == 'snow_depth_data':
-            user_question.sql = snow_depth_sql(query)
-            user_question.data = query_bq_data(user_question.sql)
+            user_question.location = json.loads(location_extraction(user_question.question))  # Extract location from user question
+            query = (user_question.question + ' Additional context:' + user_question.location['county'] + ' ' + user_question.location['state']
+                     + ' Elevation: ' + str(user_question.location['elevation']))
 
-        if user_question.method == 'weather_forecast':
-            lat = user_question.location['latitude']
-            lon = user_question.location['longitude']
-            user_question.data = 'Forecast: ' + str(weather_forecast(lat, lon))
+            ######## COLLECT THE CORRECT DATA ########
 
-        st.session_state.sql.append({"question": query, "sql_query": user_question.sql})
-        result = user_question.data
-        #st.write(result)
+            if user_question.method == 'snow_depth_data':
+                user_question.sql = snow_depth_sql(query)
 
-        if result is not None and len(result) > 0:
-            #st.write(":white_check_mark: Data Found")
-            response = response([user_question.data], user_question.question)
-            st.session_state.messages.append({"role": "assistant", "content": response})
-            st.chat_message('assistant').write(response)
+                logging.info(f"Snow depth SQL query: {user_question.sql}")
 
-        else:
-            msg = ('Sorry, I could not find any results for your query.'
-                   'I can be picky. Try to be more specific.')
-            st.session_state.messages.append({"role": "assistant", "content": msg})
-            st.chat_message('assistant').write(msg)
+                user_question.data = query_bq_data(user_question.sql)
 
+            if user_question.method == 'weather_forecast':
+                lat = user_question.location['latitude']
+                lon = user_question.location['longitude']
+                user_question.data = 'Forecast: ' + str(weather_forecast(lat, lon))
+                logging.info(f"Weather forecast for Latitude: {lat}, Longitude: {lon}")
+
+            st.session_state.sql.append({"question": query, "sql_query": user_question.sql})
+            result = user_question.data
+            #st.write(result)
+
+            if result is not None and len(result) > 0:
+
+                response = response([user_question.data], user_question.question)
+                st.session_state.messages.append({"role": "assistant", "content": response})
+                st.chat_message('assistant').write(response)
+
+            else:
+                msg = ('Sorry, I could not find any results for your query.'
+                       'I can be picky. Try to be more specific.')
+                st.session_state.messages.append({"role": "assistant", "content": msg})
+                st.chat_message('assistant').write(msg)
+
+except Exception as e:
+    logging.error(f"Error occurred: {str(e)}")
+    st.error('Sorry, something went wrong. Please refresh and try again.', icon="🚨")
