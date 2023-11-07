@@ -69,13 +69,13 @@ def response(data, question):
     '''Generates a response to the user's question based on the data provided.'''
 
     system_content = ('You are a helpful assistant. Answer the user question based on the context below. Consider summarizing the context.'
-                      ' '
+                      ' Always assume the context is related to the user question.'
                       f'<context> {data} <context> ')
 
     logging.info(f"Generating response - System Context: {system_content}")
 
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
         temperature=0.0,
         messages=[
             {"role": "system", "content": system_content},
@@ -103,6 +103,8 @@ def method_selector(question):
         messages=messages,
         functions=functions,
     )
+
+    logging.info(f"Method selector - System Context: {messages}, Output: {response}")
 
     return response["choices"][0]["message"]["function_call"]['name']
 
@@ -138,12 +140,16 @@ def location_extraction(question):
                       'If you are unsure return None. '
                       '#### Example ###'
                       ' Text: How much snow is at Loveland Pass?'
-                      ' Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900, "latitude": 39.6806, "longitude": -105.8972}')
+                      ' Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900, "latitude": 39.6806, "longitude": -105.8972}'
+                      '#### Example ###'
+                      ' Text: What is the weather forecast for 81632?'
+                      ' Response: {"county": "Eagle", "state": "CO", "elevation": 7200, "latitude": 39.6445, "longitude": -106.5933}'
+                      )
 
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4",
         temperature=0,
-        max_tokens=200,
+        max_tokens=150,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
