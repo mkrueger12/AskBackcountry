@@ -653,3 +653,274 @@ KeyError: 'function_call'
 2023-11-06 18:06:44,813 - INFO - Getting weather_forecast for Latitude: 42.0751, Longitude: -87.7228
 2023-11-06 18:06:46,650 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_18-06-46-040.json
 2023-11-06 18:06:46,654 - INFO - Generating response - System Context: You are a helpful assistant. Answer the user question based on the context below. Consider summarizing the context. The context is always related to entities in the question.<context> ["Forecast: [{'number': 1, 'name': 'Tonight', 'startTime': '2023-11-06T18:00:00-06:00', 'endTime': '2023-11-07T06:00:00-06:00', 'isDaytime': False, 'temperature': 43, 'temperatureUnit': 'F', 'temperatureTrend': 'rising', 'probabilityOfPrecipitation': {'unitCode': 'wmoUnit:percent', 'value': None}, 'dewpoint': {'unitCode': 'wmoUnit:degC', 'value': 8.88888888888889}, 'relativeHumidity': {'unitCode': 'wmoUnit:percent', 'value': 82}, 'windSpeed': '10 mph', 'windDirection': 'WNW', 'icon': 'https://api.weather.gov/icons/land/night/sct?size=medium', 'shortForecast': 'Partly Cloudy', 'detailedForecast': 'Partly cloudy. Low around 43, with temperatures rising to around 45 overnight. West northwest wind around 10 mph, with gusts as high as 25 mph.'}, {'number': 2, 'name': 'Tuesday', 'startTime': '2023-11-07T06:00:00-06:00', 'endTime': '2023-11-07T18:00:00-06:00', 'isDaytime': True, 'temperature': 52, 'temperatureUnit': 'F', 'temperatureTrend': 'falling', 'probabilityOfPrecipitation': {'unitCode': 'wmoUnit:percent', 'value': None}, 'dewpoint': {'unitCode': 'wmoUnit:degC', 'value': 6.111111111111111}, 'relativeHumidity': {'unitCode': 'wmoUnit:percent', 'value': 86}, 'windSpeed': '5 to 10 mph', 'windDirection': 'NNE', 'icon': 'https://api.weather.gov/icons/land/day/bkn?size=medium', 'shortForecast': 'Partly Sunny', 'detailedForecast': 'Partly sunny. High near 52, with temperatures falling to around 48 in the afternoon. North northeast wind 5 to 10 mph.'}, {'number': 3, 'name': 'Tuesday Night', 'startTime': '2023-11-07T18:00:00-06:00', 'endTime': '2023-11-08T06:00:00-06:00', 'isDaytime': False, 'temperature': 45, 'temperatureUnit': 'F', 'temperatureTrend': 'rising', 'probabilityOfPrecipitation': {'unitCode': 'wmoUnit:percent', 'value': 30}, 'dewpoint': {'unitCode': 'wmoUnit:degC', 'value': 6.666666666666667}, 'relativeHumidity': {'unitCode': 'wmoUnit:percent', 'value': 89}, 'windSpeed': '10 to 15 mph', 'windDirection': 'E', 'icon': 'https://api.weather.gov/icons/land/night/bkn/rain,30?size=medium', 'shortForecast': 'Mostly Cloudy then Chance Rain', 'detailedForecast': 'A chance of rain after midnight. Mostly cloudy. Low around 45, with temperatures rising to around 48 overnight. East wind 10 to 15 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.'}, {'number': 4, 'name': 'Wednesday', 'startTime': '2023-11-08T06:00:00-06:00', 'endTime': '2023-11-08T18:00:00-06:00', 'isDaytime': True, 'temperature': 58, 'temperatureUnit': 'F', 'temperatureTrend': None, 'probabilityOfPrecipitation': {'unitCode': 'wmoUnit:percent', 'value': 50}, 'dewpoint': {'unitCode': 'wmoUnit:degC', 'value': 11.666666666666666}, 'relativeHumidity': {'unitCode': 'wmoUnit:percent', 'value': 93}, 'windSpeed': '5 to 10 mph', 'windDirection': 'E', 'icon': 'https://api.weather.gov/icons/land/day/rain,40/rain,50?size=medium', 'shortForecast': 'Chance Rain', 'detailedForecast': 'A chance of rain. Cloudy, with a high near 58. East wind 5 to 10 mph, with gusts as high as 20 mph. Chance of precipitation is 50%.'}, {'number': 5, 'name': 'Wednesday Night', 'startTime': '2023-11-08T18:00:00-06:00', 'endTime': '2023-11-09T06:00:00-06:00', 'isDaytime': False, 'temperature': 44, 'temperatureUnit': 'F', 'temperatureTrend': None, 'probabilityOfPrecipitation': {'unitCode': 'wmoUnit:percent', 'value': 40}, 'dewpoint': {'unitCode': 'wmoUnit:degC', 'value': 11.666666666666666}, 'relativeHumidity': {'unitCode': 'wmoUnit:percent', 'value': 96}, 'windSpeed': '5 to 15 mph', 'windDirection': 'N', 'icon': 'https://api.weather.gov/icons/land/night/rain,40/bkn?size=medium', 'shortForecast': 'Chance Rain then Mostly Cloudy', 'detailedForecast': 'A chance of rain before midnight. Mostly cloudy, with a low around 44. North wind 5 to 15 mph. Chance of precipitation is 40%.'}, {'number': 6, 'name': 'Thursday', 'startTime': '2023-11-09T06:00:00-06:00', 'endTime': '2023-11-09T18:00:00-06:00', 'isDaytime': True, 'temperature': 51, 'temperatureUnit': 'F', 'temperatureTrend': None, 'probabilityOfPrecipitation': {'unitCode': 'wmoUnit:percent', 'value': None}, 'dewpoint': {'unitCode': 'wmoUnit:degC', 'value': 5.555555555555555}, 'relativeHumidity': {'unitCode': 'wmoUnit:percent', 'value': 86}, 'windSpeed': '15 mph', 'windDirection': 'WNW', 'icon': 'https://api.weather.gov/icons/land/day/sct?size=medium', 'shortForecast': 'Mostly Sunny', 'detailedForecast': 'Mostly sunny, with a high near 51.'}]"] <context> 
+2023-11-06 18:08:45,946 - INFO - File uploaded to gs://ask-bc-analytics/feedback/2023-11-06_18-08-45-394.json
+2023-11-06 18:09:05,976 - INFO - User query: What is the weather forecast for 60091?
+2023-11-06 18:09:09,350 - INFO - Method selector - System Context: [{'role': 'user', 'content': 'What is the weather forecast for 60091?'}], Output: {
+  "id": "chatcmpl-8I4sUL0R2boj7iu7Epc8XysRduUNW",
+  "object": "chat.completion",
+  "created": 1699319346,
+  "model": "gpt-4-0613",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "I'm sorry, but I need the latitude and longitude to provide a weather forecast. Could you please provide those details?"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 185,
+    "completion_tokens": 25,
+    "total_tokens": 210
+  }
+}
+2023-11-06 18:09:09,353 - ERROR - An error occurred:
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 87, in get
+    entry_bytes = self._read_from_mem_cache(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 137, in _read_from_mem_cache
+    raise CacheStorageKeyNotFoundError("Key not found in mem cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in mem cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 145, in get
+    with streamlit_read(path, binary=True) as input:
+  File "/usr/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/file_util.py", line 77, in streamlit_read
+    if os.stat(filename).st_size == 0:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/max/.streamlit/cache/d4a49b96bb57319b6d01e9e86d8e04a0-b77c05d936d16a2dc7df4df4b08d28c4.memo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 634, in read_result
+    pickled_entry = self.storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 89, in get
+    entry_bytes = self._persist_storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 150, in get
+    raise CacheStorageKeyNotFoundError("Key not found in disk cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in disk cache
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 264, in _get_or_create_cached_value
+    cached_result = cache.read_result(value_key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 636, in read_result
+    raise CacheKeyNotFoundError(str(e)) from e
+streamlit.runtime.caching.cache_errors.CacheKeyNotFoundError: Key not found in disk cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 87, in get
+    entry_bytes = self._read_from_mem_cache(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 137, in _read_from_mem_cache
+    raise CacheStorageKeyNotFoundError("Key not found in mem cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in mem cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 145, in get
+    with streamlit_read(path, binary=True) as input:
+  File "/usr/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/file_util.py", line 77, in streamlit_read
+    if os.stat(filename).st_size == 0:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/max/.streamlit/cache/d4a49b96bb57319b6d01e9e86d8e04a0-b77c05d936d16a2dc7df4df4b08d28c4.memo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 634, in read_result
+    pickled_entry = self.storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 89, in get
+    entry_bytes = self._persist_storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 150, in get
+    raise CacheStorageKeyNotFoundError("Key not found in disk cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in disk cache
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 312, in _handle_cache_miss
+    cached_result = cache.read_result(value_key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 636, in read_result
+    raise CacheKeyNotFoundError(str(e)) from e
+streamlit.runtime.caching.cache_errors.CacheKeyNotFoundError: Key not found in disk cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/app.py", line 64, in <module>
+    user_question.method = method_selector(user_question.question)  # Collect data for the user question
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 212, in wrapper
+    return cached_func(*args, **kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 243, in __call__
+    return self._get_or_create_cached_value(args, kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 267, in _get_or_create_cached_value
+    return self._handle_cache_miss(cache, value_key, func_args, func_kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 321, in _handle_cache_miss
+    computed_value = self._info.func(*func_args, **func_kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/helpers/UserQuestion.py", line 108, in method_selector
+    return response["choices"][0]["message"]["function_call"]['name']
+KeyError: 'function_call'
+2023-11-06 18:09:09,424 - ERROR - Error occurred: 'function_call'
+2023-11-06 18:09:10,625 - INFO - File uploaded to gs://ask-bc-analytics/errors/2023-11-06_18-09-10-089.json
+2023-11-06 18:09:46,883 - INFO - User query: What is the weather forecast for 60091?
+2023-11-06 18:09:51,070 - INFO - Method selector - System Context: [{'role': 'user', 'content': 'What is the weather forecast for 60091?'}], Output: {
+  "id": "chatcmpl-8I4t9iVCSmzPhMQxH5f1IdABPytdf",
+  "object": "chat.completion",
+  "created": 1699319387,
+  "model": "gpt-4-0613",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": "I'm sorry, but I can't provide the weather forecast based on a postal code. Could you please provide the latitude and longitude of the location you're interested in?"
+      },
+      "finish_reason": "stop"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 185,
+    "completion_tokens": 35,
+    "total_tokens": 220
+  }
+}
+2023-11-06 18:09:51,073 - ERROR - An error occurred:
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 87, in get
+    entry_bytes = self._read_from_mem_cache(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 137, in _read_from_mem_cache
+    raise CacheStorageKeyNotFoundError("Key not found in mem cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in mem cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 145, in get
+    with streamlit_read(path, binary=True) as input:
+  File "/usr/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/file_util.py", line 77, in streamlit_read
+    if os.stat(filename).st_size == 0:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/max/.streamlit/cache/d4a49b96bb57319b6d01e9e86d8e04a0-b77c05d936d16a2dc7df4df4b08d28c4.memo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 634, in read_result
+    pickled_entry = self.storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 89, in get
+    entry_bytes = self._persist_storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 150, in get
+    raise CacheStorageKeyNotFoundError("Key not found in disk cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in disk cache
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 264, in _get_or_create_cached_value
+    cached_result = cache.read_result(value_key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 636, in read_result
+    raise CacheKeyNotFoundError(str(e)) from e
+streamlit.runtime.caching.cache_errors.CacheKeyNotFoundError: Key not found in disk cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 87, in get
+    entry_bytes = self._read_from_mem_cache(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 137, in _read_from_mem_cache
+    raise CacheStorageKeyNotFoundError("Key not found in mem cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in mem cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 145, in get
+    with streamlit_read(path, binary=True) as input:
+  File "/usr/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/file_util.py", line 77, in streamlit_read
+    if os.stat(filename).st_size == 0:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/max/.streamlit/cache/d4a49b96bb57319b6d01e9e86d8e04a0-b77c05d936d16a2dc7df4df4b08d28c4.memo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 634, in read_result
+    pickled_entry = self.storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 89, in get
+    entry_bytes = self._persist_storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 150, in get
+    raise CacheStorageKeyNotFoundError("Key not found in disk cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in disk cache
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 312, in _handle_cache_miss
+    cached_result = cache.read_result(value_key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 636, in read_result
+    raise CacheKeyNotFoundError(str(e)) from e
+streamlit.runtime.caching.cache_errors.CacheKeyNotFoundError: Key not found in disk cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/app.py", line 64, in <module>
+    user_question.method = method_selector(user_question.question)  # Collect data for the user question
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 212, in wrapper
+    return cached_func(*args, **kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 243, in __call__
+    return self._get_or_create_cached_value(args, kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 267, in _get_or_create_cached_value
+    return self._handle_cache_miss(cache, value_key, func_args, func_kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 321, in _handle_cache_miss
+    computed_value = self._info.func(*func_args, **func_kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/helpers/UserQuestion.py", line 108, in method_selector
+    return response["choices"][0]["message"]["function_call"]['name']
+KeyError: 'function_call'
+2023-11-06 18:09:51,147 - ERROR - Error occurred: 'function_call'
+2023-11-06 18:09:52,507 - INFO - File uploaded to gs://ask-bc-analytics/errors/2023-11-06_18-09-51-885.json
+2023-11-06 18:15:53,171 - INFO - User query: What is the weather forecast for 60091?
+2023-11-06 18:15:54,741 - INFO - Method selector - System Context: [{'role': 'user', 'content': 'What is the weather forecast for 60091?'}], Output: {
+  "id": "chatcmpl-8I4z3NjulrRaGq3tsQnta75eJbVgC",
+  "object": "chat.completion",
+  "created": 1699319753,
+  "model": "gpt-4-0613",
+  "choices": [
+    {
+      "index": 0,
+      "message": {
+        "role": "assistant",
+        "content": null,
+        "function_call": {
+          "name": "weather_forecast",
+          "arguments": "{\n  \"location\": \"60091\"\n}"
+        }
+      },
+      "finish_reason": "function_call"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 171,
+    "completion_tokens": 17,
+    "total_tokens": 188
+  }
+}
+2023-11-06 18:15:54,743 - INFO - Method selected: weather_forecast
+2023-11-06 18:15:57,361 - INFO - Location extraction - System Context: You will be provided with a text, and your task is to extract the county, state, elevation, latitude, and longitude from it.Do not attempt to answer the question. Only extract the location information.If you are unsure return None. #### Example ### Text: How much snow is at Loveland Pass? Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900, "latitude": 39.6806, "longitude": -105.8972}#### Example ### Text: What is the weather forecast for 81632? Response: {"county": "Eagle", "state": "CO", "elevation": 7200, "latitude": 39.6445, "longitude": -106.5933}, Output: {"county": "Cook", "state": "IL", "elevation": 620, "latitude": 42.0751, "longitude": -87.7228}
+2023-11-06 18:15:57,369 - INFO - Getting weather_forecast for Latitude: 42.0751, Longitude: -87.7228
+2023-11-06 18:15:59,205 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-06_18-15-58-558.json
+2023-11-06 18:15:59,208 - INFO - Generating response - System Context: You are a helpful assistant. Summarize the context below in relation to the user question. <context> ["Forecast: [{'number': 1, 'name': 'Tonight', 'startTime': '2023-11-06T18:00:00-06:00', 'endTime': '2023-11-07T06:00:00-06:00', 'isDaytime': False, 'temperature': 43, 'temperatureUnit': 'F', 'temperatureTrend': 'rising', 'probabilityOfPrecipitation': {'unitCode': 'wmoUnit:percent', 'value': None}, 'dewpoint': {'unitCode': 'wmoUnit:degC', 'value': 8.88888888888889}, 'relativeHumidity': {'unitCode': 'wmoUnit:percent', 'value': 82}, 'windSpeed': '10 mph', 'windDirection': 'WNW', 'icon': 'https://api.weather.gov/icons/land/night/sct?size=medium', 'shortForecast': 'Partly Cloudy', 'detailedForecast': 'Partly cloudy. Low around 43, with temperatures rising to around 45 overnight. West northwest wind around 10 mph, with gusts as high as 25 mph.'}, {'number': 2, 'name': 'Tuesday', 'startTime': '2023-11-07T06:00:00-06:00', 'endTime': '2023-11-07T18:00:00-06:00', 'isDaytime': True, 'temperature': 52, 'temperatureUnit': 'F', 'temperatureTrend': 'falling', 'probabilityOfPrecipitation': {'unitCode': 'wmoUnit:percent', 'value': None}, 'dewpoint': {'unitCode': 'wmoUnit:degC', 'value': 6.111111111111111}, 'relativeHumidity': {'unitCode': 'wmoUnit:percent', 'value': 86}, 'windSpeed': '5 to 10 mph', 'windDirection': 'NNE', 'icon': 'https://api.weather.gov/icons/land/day/bkn?size=medium', 'shortForecast': 'Partly Sunny', 'detailedForecast': 'Partly sunny. High near 52, with temperatures falling to around 48 in the afternoon. North northeast wind 5 to 10 mph.'}, {'number': 3, 'name': 'Tuesday Night', 'startTime': '2023-11-07T18:00:00-06:00', 'endTime': '2023-11-08T06:00:00-06:00', 'isDaytime': False, 'temperature': 45, 'temperatureUnit': 'F', 'temperatureTrend': 'rising', 'probabilityOfPrecipitation': {'unitCode': 'wmoUnit:percent', 'value': 30}, 'dewpoint': {'unitCode': 'wmoUnit:degC', 'value': 6.666666666666667}, 'relativeHumidity': {'unitCode': 'wmoUnit:percent', 'value': 89}, 'windSpeed': '10 to 15 mph', 'windDirection': 'E', 'icon': 'https://api.weather.gov/icons/land/night/bkn/rain,30?size=medium', 'shortForecast': 'Mostly Cloudy then Chance Rain', 'detailedForecast': 'A chance of rain after midnight. Mostly cloudy. Low around 45, with temperatures rising to around 48 overnight. East wind 10 to 15 mph. Chance of precipitation is 30%. New rainfall amounts less than a tenth of an inch possible.'}, {'number': 4, 'name': 'Wednesday', 'startTime': '2023-11-08T06:00:00-06:00', 'endTime': '2023-11-08T18:00:00-06:00', 'isDaytime': True, 'temperature': 58, 'temperatureUnit': 'F', 'temperatureTrend': None, 'probabilityOfPrecipitation': {'unitCode': 'wmoUnit:percent', 'value': 50}, 'dewpoint': {'unitCode': 'wmoUnit:degC', 'value': 11.666666666666666}, 'relativeHumidity': {'unitCode': 'wmoUnit:percent', 'value': 93}, 'windSpeed': '5 to 10 mph', 'windDirection': 'E', 'icon': 'https://api.weather.gov/icons/land/day/rain,40/rain,50?size=medium', 'shortForecast': 'Chance Rain', 'detailedForecast': 'A chance of rain. Cloudy, with a high near 58. East wind 5 to 10 mph, with gusts as high as 20 mph. Chance of precipitation is 50%.'}, {'number': 5, 'name': 'Wednesday Night', 'startTime': '2023-11-08T18:00:00-06:00', 'endTime': '2023-11-09T06:00:00-06:00', 'isDaytime': False, 'temperature': 44, 'temperatureUnit': 'F', 'temperatureTrend': None, 'probabilityOfPrecipitation': {'unitCode': 'wmoUnit:percent', 'value': 40}, 'dewpoint': {'unitCode': 'wmoUnit:degC', 'value': 11.666666666666666}, 'relativeHumidity': {'unitCode': 'wmoUnit:percent', 'value': 96}, 'windSpeed': '5 to 15 mph', 'windDirection': 'N', 'icon': 'https://api.weather.gov/icons/land/night/rain,40/bkn?size=medium', 'shortForecast': 'Chance Rain then Mostly Cloudy', 'detailedForecast': 'A chance of rain before midnight. Mostly cloudy, with a low around 44. North wind 5 to 15 mph. Chance of precipitation is 40%.'}, {'number': 6, 'name': 'Thursday', 'startTime': '2023-11-09T06:00:00-06:00', 'endTime': '2023-11-09T18:00:00-06:00', 'isDaytime': True, 'temperature': 51, 'temperatureUnit': 'F', 'temperatureTrend': None, 'probabilityOfPrecipitation': {'unitCode': 'wmoUnit:percent', 'value': None}, 'dewpoint': {'unitCode': 'wmoUnit:degC', 'value': 5.555555555555555}, 'relativeHumidity': {'unitCode': 'wmoUnit:percent', 'value': 86}, 'windSpeed': '15 mph', 'windDirection': 'WNW', 'icon': 'https://api.weather.gov/icons/land/day/sct?size=medium', 'shortForecast': 'Mostly Sunny', 'detailedForecast': 'Mostly sunny, with a high near 51.'}]"] <context> 
+2023-11-06 18:17:40,333 - INFO - File uploaded to gs://ask-bc-analytics/feedback/2023-11-06_18-17-39-773.json

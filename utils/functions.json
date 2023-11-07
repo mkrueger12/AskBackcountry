@@ -37,13 +37,9 @@
     "parameters": {
       "type": "object",
       "properties": {
-        "latitude": {
+        "location": {
           "type": "string",
-          "description": "The latitude of the location in decimal degrees."
-        },
-        "longitude": {
-          "type": "string",
-          "description": "The longitude of the location in decimal degrees."
+          "description": "Any of the following: latitude, longitude, state, zip code, city, etc."
         }
       },
       "required": [

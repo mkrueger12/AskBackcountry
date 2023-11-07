@@ -68,9 +68,8 @@ def response(data, question):
 
     '''Generates a response to the user's question based on the data provided.'''
 
-    system_content = ('You are a helpful assistant. Answer the user question based on the context below. Consider summarizing the context.'
-                      ' Always assume the context is related to the user question.'
-                      f'<context> {data} <context> ')
+    system_content = ('You are a helpful assistant. Summarize the context below in relation to the user question.'
+                      f' <context> {data} <context> ')
 
     logging.info(f"Generating response - System Context: {system_content}")
 
