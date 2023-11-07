@@ -13,9 +13,13 @@ logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s 
 
 
 ################### SET UI COMPONENTS ###################
+st.warning('This app is still in development. You may see outages or issues. Please be patient and provide your feedback. '
+           ' How to Use - There are currently two modules SNOW & WEATHER. SNOW supports questions about the snowpack in Colorado only.'
+           ' WEATHER can provide a forecast for any location in the United States. Enjoy!', icon="⚠️")
 
 st.title("💬 AskBackcountry")
 st.caption("🚀 An Adventure Planning Companion")
+
 #st.write(st.session_state)
 
 st.sidebar.button('Clear Chat History', on_click=clear_chat_history)
