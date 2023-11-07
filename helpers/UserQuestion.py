@@ -86,7 +86,7 @@ def response(data, question):
     return completion.choices[0].message['content']
 
 
-@st.cache_data(persist=True, ttl=None)
+@st.cache_data(persist=True, ttl=None, show_spinner=False)
 def method_selector(question):
 
     ''' Determines which function should be called based on the user's query.'''
@@ -174,7 +174,7 @@ def weather_forecast(latitude, longitude):
     return forecast['properties']['periods'][:6]
 
 
-@st.cache_data(ttl='24h')
+@st.cache_data(ttl='24h', show_spinner=False)
 def snow_depth_sql(question):
     system_content = '''Given the following SQL tables, your job is to write prompts given a user’s question.
 
