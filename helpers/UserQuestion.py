@@ -74,7 +74,7 @@ def response(data, question):
     logging.info(f"Generating response - System Context: {system_content}")
 
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-1106",
         temperature=0.0,
         messages=[
             {"role": "system", "content": system_content},
@@ -152,6 +152,7 @@ def location_extraction(question):
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
+        seed=1212,
         messages=[
             {"role": "system", "content": system_content},
             {"role": "user", "content": question}
@@ -223,6 +224,7 @@ def snow_depth_sql(question):
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
+        seed=1212,
         messages=[
             {"role": "system", "content": system_content},
             {"role": "user", "content": question}
