@@ -4,7 +4,7 @@ import requests
 import logging
 import datetime
 import dotenv
-import openai
+from openai import OpenAI
 import streamlit as st
 from google.cloud import bigquery
 from google.cloud import storage
@@ -12,7 +12,7 @@ from google.cloud import storage
 
 dotenv.load_dotenv('.env')
 
-openai.api_key = os.getenv('OPENAI_KEY')
+client = OpenAI(api_key=os.getenv('OPENAI_KEY'))
 
 logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger()
@@ -73,7 +73,7 @@ def response(data, question):
 
     logging.info(f"Generating response - System Context: {system_content}")
 
-    completion = openai.ChatCompletion.create(
+    completion = client.chat.completions.create(
         model="gpt-3.5-turbo-1106",
         temperature=0.0,
         messages=[
@@ -82,7 +82,7 @@ def response(data, question):
         ]
     )
 
-    return completion.choices[0].message['content']
+    return completion.choices[0].message.content
 
 
 @st.cache_data(persist=True, ttl=None, show_spinner=False)
@@ -92,7 +92,7 @@ def method_selector(question):
 
     messages = [{"role": "user", "content": question}]
 
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model="gpt-4",
         temperature=0,
         max_tokens=512,
@@ -105,7 +105,9 @@ def method_selector(question):
 
     logging.info(f"Method selector - System Context: {messages}, Output: {response}")
 
-    return response["choices"][0]["message"]["function_call"]['name']
+    response.choices[0].message.function_call.name
+
+    return response.choices[0].message.function_call.name
 
 
 @st.cache_data(ttl='24h')
@@ -145,7 +147,7 @@ def location_extraction(question):
                       ' Response: {"county": "Eagle", "state": "CO", "elevation": 7200, "latitude": 39.6445, "longitude": -106.5933}'
                       )
 
-    completion = openai.ChatCompletion.create(
+    completion = client.chat.completions.create(
         model="gpt-4",
         temperature=0,
         max_tokens=150,
@@ -159,7 +161,7 @@ def location_extraction(question):
         ]
     )
 
-    output = completion.choices[0].message['content']
+    output = completion.choices[0].message.content
 
     logging.info(f"Location extraction - System Context: {system_content}, Output: {output}")
 
@@ -210,7 +212,7 @@ def snow_depth_sql(question):
                                                           WHERE county = 'Clear Creek' AND state = 'CO' AND elevation > 8900
                                                         )
                                                         
-                                                        SELECT AVG(snow_depth) AS average_snow_depth
+                                                        SELECT AVG(snow_depth) AS average_snow_depth_inches
                                                         FROM `avalanche-analytics-project.historical_raw.snow-depth` AS s
                                                         JOIN LatestDate AS ld
                                                         ON s.Date = ld.max_date
@@ -222,7 +224,7 @@ def snow_depth_sql(question):
                             Return only the SQL query.
                             Always LIMIT results when possible.'''
 
-    completion = openai.ChatCompletion.create(
+    completion = client.chat.completions.create(
         model="gpt-4",
         temperature=0,
         max_tokens=512,
@@ -236,4 +238,4 @@ def snow_depth_sql(question):
         ]
     )
 
-    return completion.choices[0].message['content']
+    return completion.choices[0].message.content
