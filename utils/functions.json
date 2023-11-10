@@ -1,7 +1,7 @@
 [
   {
     "name": "snow_depth_data",
-    "description": "Collects Snow Depth and Snow Fall data based on the user's question.",
+    "description": "Collects Snow Depth and Snow Fall data.",
     "parameters": {
       "type": "object",
       "properties": {

@@ -1,0 +1,40 @@
+[{
+    "type": "function",
+    "function": {
+        "name": "snow_depth_data",
+        "description": "Collects Snow Depth and Snow Fall data.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "user_question": {
+                    "type": "string",
+                    "description": "How much new snow has fallen in the last 24 hours in Eagle County?"
+                }
+            },
+            "required": [
+                "user_question"
+            ]
+        }
+    }
+}, {
+    "type": "function",
+    "function": {
+        "name": "weather_forecast",
+        "description": "Returns the 3-day weather forecast for a given location.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "latitude": {
+                    "type": "string",
+                    "description": "Latitude of the location in decimal degrees."
+                },
+                "longitude": {
+                    "type": "string",
+                    "description": "longitude of the location in decimal degrees."
+                }
+            },
+            "required": ['latitude', 'longitude']
+        }
+    }
+}
+]

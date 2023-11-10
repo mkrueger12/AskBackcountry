@@ -74,7 +74,7 @@ def response(data, question):
     logging.info(f"Generating response - System Context: {system_content}")
 
     completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
+        model="gpt-3.5-turbo-1106",
         temperature=0.0,
         messages=[
             {"role": "system", "content": system_content},
@@ -152,6 +152,7 @@ def location_extraction(question):
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
+        seed=1212,
         messages=[
             {"role": "system", "content": system_content},
             {"role": "user", "content": question}
@@ -183,16 +184,21 @@ def weather_forecast(latitude, longitude):
 def snow_depth_sql(question):
     system_content = '''Given the following SQL tables, your job is to write prompts given a user’s question.
 
-                            CREATE TABLE `avalanche-analytics-project.historical_raw.snow-depth` (
-                            state STRING <example: 'IL'>,
-                            county STRING <Used to determine station county or location, example: 'Eagle'>,
+                            CREATE TABLE `avalanche-analytics-project.production.snotel` (
+                            date DATE,
+                            station_name STRING,
+                            state_code STRING <example: 'IL'>,
+                            elevation_ft INTEGER <Should always be 3000 lower than the elevation provided in the context>,
                             latitude FLOAT,
                             longitude FLOAT,
-                            elevation INTEGER <Should always be 3000 lower than the elevation provided in the context>,
-                            station_id INTEGER,
-                            station_name STRING <only use if station mentioned by user, example: 'Vail Mountain'>,
-                            Date DATE NULLABLE <yyyy-mm-dd>,
-                            snow_depth FLOAT <do not use SUM()>,
+                            county_name STRING <used to determine station county or location, example: 'Eagle'>,
+                            snow_water_equivalent_in FLOAT,
+                            snow_water_equivalent_median_percentage FLOAT,
+                            snow_depth_in FLOAT <do not use SUM()>,
+                            max_temp_degF FLOAT,
+                            min_temp_degF FLOAT,
+                            observed_temp_degF FLOAT,
+                            snow_density_percentage FLOAT,
                             new_snow FLOAT <inches, only SUM() when GROUP BY station_name>);
                             
                             <example>
@@ -223,6 +229,7 @@ def snow_depth_sql(question):
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0,
+        seed=1212,
         messages=[
             {"role": "system", "content": system_content},
             {"role": "user", "content": question}
