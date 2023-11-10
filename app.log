@@ -936,3 +936,223 @@ KeyError: 'function_call'
 2023-11-06 20:27:50,000 - INFO - HTTP Request: POST https://api.openai.com/v1/threads/thread_Mvc37jmeGrURlAxWfDRKJ6WQ/runs "HTTP/1.1 200 OK"
 2023-11-06 20:27:59,557 - INFO - HTTP Request: GET https://api.openai.com/v1/threads/thread_Mvc37jmeGrURlAxWfDRKJ6WQ/runs/run_9kMlcDH6BbBhUgTSH1lDbjZO "HTTP/1.1 200 OK"
 2023-11-06 20:29:17,766 - INFO - HTTP Request: GET https://api.openai.com/v1/threads/thread_Mvc37jmeGrURlAxWfDRKJ6WQ/messages/msg_TnFyXLdhnekWm3xDYXB3MvMz "HTTP/1.1 200 OK"
+2023-11-09 20:59:00,361 - INFO - User query: How much snow is at Vail Mountain?
+2023-11-09 20:59:00,378 - ERROR - An error occurred:
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 87, in get
+    entry_bytes = self._read_from_mem_cache(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 137, in _read_from_mem_cache
+    raise CacheStorageKeyNotFoundError("Key not found in mem cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in mem cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 145, in get
+    with streamlit_read(path, binary=True) as input:
+  File "/usr/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/file_util.py", line 77, in streamlit_read
+    if os.stat(filename).st_size == 0:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/max/.streamlit/cache/d4a49b96bb57319b6d01e9e86d8e04a0-9a499fa1ea61142e4d6eca3c2feca085.memo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 634, in read_result
+    pickled_entry = self.storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 89, in get
+    entry_bytes = self._persist_storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 150, in get
+    raise CacheStorageKeyNotFoundError("Key not found in disk cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in disk cache
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 264, in _get_or_create_cached_value
+    cached_result = cache.read_result(value_key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 636, in read_result
+    raise CacheKeyNotFoundError(str(e)) from e
+streamlit.runtime.caching.cache_errors.CacheKeyNotFoundError: Key not found in disk cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 87, in get
+    entry_bytes = self._read_from_mem_cache(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 137, in _read_from_mem_cache
+    raise CacheStorageKeyNotFoundError("Key not found in mem cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in mem cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 145, in get
+    with streamlit_read(path, binary=True) as input:
+  File "/usr/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/file_util.py", line 77, in streamlit_read
+    if os.stat(filename).st_size == 0:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/max/.streamlit/cache/d4a49b96bb57319b6d01e9e86d8e04a0-9a499fa1ea61142e4d6eca3c2feca085.memo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 634, in read_result
+    pickled_entry = self.storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 89, in get
+    entry_bytes = self._persist_storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 150, in get
+    raise CacheStorageKeyNotFoundError("Key not found in disk cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in disk cache
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 312, in _handle_cache_miss
+    cached_result = cache.read_result(value_key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 636, in read_result
+    raise CacheKeyNotFoundError(str(e)) from e
+streamlit.runtime.caching.cache_errors.CacheKeyNotFoundError: Key not found in disk cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/app.py", line 64, in <module>
+    user_question.method = method_selector(user_question.question)  # Collect data for the user question
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 212, in wrapper
+    return cached_func(*args, **kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 243, in __call__
+    return self._get_or_create_cached_value(args, kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 267, in _get_or_create_cached_value
+    return self._handle_cache_miss(cache, value_key, func_args, func_kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 321, in _handle_cache_miss
+    computed_value = self._info.func(*func_args, **func_kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/helpers/UserQuestion.py", line 95, in method_selector
+    response = openai.ChatCompletion.create(
+AttributeError: module 'openai' has no attribute 'ChatCompletion'
+2023-11-09 20:59:00,400 - ERROR - Error occurred: module 'openai' has no attribute 'ChatCompletion'
+2023-11-09 20:59:01,763 - INFO - File uploaded to gs://ask-bc-analytics/errors/2023-11-09_20-59-01-066.json
+2023-11-09 21:04:29,151 - INFO - User query: How much snow is at Vail Mountain?
+2023-11-09 21:04:32,419 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2023-11-09 21:04:32,432 - INFO - Method selector - System Context: [{'role': 'user', 'content': 'How much snow is at Vail Mountain?'}], Output: ChatCompletion(id='chatcmpl-8JD2siwQZ09cclg2yOKhaE0Kd4mPv', choices=[Choice(finish_reason='function_call', index=0, message=ChatCompletionMessage(content=None, role='assistant', function_call=FunctionCall(arguments='{\n  "user_question": "How much snow is at Vail Mountain?"\n}', name='snow_depth_data'), tool_calls=None))], created=1699589070, model='gpt-4-0613', object='chat.completion', system_fingerprint=None, usage=CompletionUsage(completion_tokens=25, prompt_tokens=173, total_tokens=198))
+2023-11-09 21:04:32,434 - ERROR - An error occurred:
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 87, in get
+    entry_bytes = self._read_from_mem_cache(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 137, in _read_from_mem_cache
+    raise CacheStorageKeyNotFoundError("Key not found in mem cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in mem cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 145, in get
+    with streamlit_read(path, binary=True) as input:
+  File "/usr/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/file_util.py", line 77, in streamlit_read
+    if os.stat(filename).st_size == 0:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/max/.streamlit/cache/07f81ca69b3536de23fe6c2f004fc3d5-9a499fa1ea61142e4d6eca3c2feca085.memo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 634, in read_result
+    pickled_entry = self.storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 89, in get
+    entry_bytes = self._persist_storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 150, in get
+    raise CacheStorageKeyNotFoundError("Key not found in disk cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in disk cache
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 264, in _get_or_create_cached_value
+    cached_result = cache.read_result(value_key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 636, in read_result
+    raise CacheKeyNotFoundError(str(e)) from e
+streamlit.runtime.caching.cache_errors.CacheKeyNotFoundError: Key not found in disk cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 87, in get
+    entry_bytes = self._read_from_mem_cache(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 137, in _read_from_mem_cache
+    raise CacheStorageKeyNotFoundError("Key not found in mem cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in mem cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 145, in get
+    with streamlit_read(path, binary=True) as input:
+  File "/usr/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/file_util.py", line 77, in streamlit_read
+    if os.stat(filename).st_size == 0:
+FileNotFoundError: [Errno 2] No such file or directory: '/home/max/.streamlit/cache/07f81ca69b3536de23fe6c2f004fc3d5-9a499fa1ea61142e4d6eca3c2feca085.memo'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 634, in read_result
+    pickled_entry = self.storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/in_memory_cache_storage_wrapper.py", line 89, in get
+    entry_bytes = self._persist_storage.get(key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/storage/local_disk_cache_storage.py", line 150, in get
+    raise CacheStorageKeyNotFoundError("Key not found in disk cache")
+streamlit.runtime.caching.storage.cache_storage_protocol.CacheStorageKeyNotFoundError: Key not found in disk cache
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 312, in _handle_cache_miss
+    cached_result = cache.read_result(value_key)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_data_api.py", line 636, in read_result
+    raise CacheKeyNotFoundError(str(e)) from e
+streamlit.runtime.caching.cache_errors.CacheKeyNotFoundError: Key not found in disk cache
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/max/PycharmProjects/askbc-backend/app.py", line 64, in <module>
+    user_question.method = method_selector(user_question.question)  # Collect data for the user question
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 212, in wrapper
+    return cached_func(*args, **kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 243, in __call__
+    return self._get_or_create_cached_value(args, kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 267, in _get_or_create_cached_value
+    return self._handle_cache_miss(cache, value_key, func_args, func_kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/venv/lib/python3.10/site-packages/streamlit/runtime/caching/cache_utils.py", line 321, in _handle_cache_miss
+    computed_value = self._info.func(*func_args, **func_kwargs)
+  File "/home/max/PycharmProjects/askbc-backend/helpers/UserQuestion.py", line 108, in method_selector
+    return response["choices"][0]["message"]["function_call"]['name']
+TypeError: 'ChatCompletion' object is not subscriptable
+2023-11-09 21:04:32,449 - ERROR - Error occurred: 'ChatCompletion' object is not subscriptable
+2023-11-09 21:04:33,856 - INFO - File uploaded to gs://ask-bc-analytics/errors/2023-11-09_21-04-33-310.json
+2023-11-09 21:10:41,687 - INFO - User query: How much snow is at Vail Mountain?
+2023-11-09 21:10:44,647 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2023-11-09 21:10:44,655 - INFO - Method selector - System Context: [{'role': 'user', 'content': 'How much snow is at Vail Mountain?'}], Output: ChatCompletion(id='chatcmpl-8JD8tdvHt6ifR0B5mxNrJov7171nA', choices=[Choice(finish_reason='function_call', index=0, message=ChatCompletionMessage(content=None, role='assistant', function_call=FunctionCall(arguments='{\n  "user_question": "How much snow is at Vail Mountain?"\n}', name='snow_depth_data'), tool_calls=None))], created=1699589443, model='gpt-4-0613', object='chat.completion', system_fingerprint=None, usage=CompletionUsage(completion_tokens=25, prompt_tokens=173, total_tokens=198))
+2023-11-09 21:10:44,659 - INFO - Method selected: snow_depth_data
+2023-11-09 21:10:47,513 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2023-11-09 21:10:47,520 - INFO - Location extraction - System Context: You will be provided with a text, and your task is to extract the county, state, elevation, latitude, and longitude from it.Do not attempt to answer the question. Only extract the location information.If you are unsure return None. #### Example ### Text: How much snow is at Loveland Pass? Response: {"county": "Clear Creek", "state": "CO", "elevation": 11900, "latitude": 39.6806, "longitude": -105.8972}#### Example ### Text: What is the weather forecast for 81632? Response: {"county": "Eagle", "state": "CO", "elevation": 7200, "latitude": 39.6445, "longitude": -106.5933}, Output: {"county": "Eagle", "state": "CO", "elevation": 11250, "latitude": 39.6403, "longitude": -106.3742}
+2023-11-09 21:10:56,012 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2023-11-09 21:10:56,021 - INFO - Snow depth SQL query: WITH LatestDate AS (
+  SELECT MAX(date) AS max_date
+  FROM `avalanche-analytics-project.production.snotel`
+  WHERE county_name = 'Eagle' AND state_code = 'CO' AND elevation_ft > 8250
+)
+
+SELECT AVG(snow_depth_in) AS average_snow_depth
+FROM `avalanche-analytics-project.production.snotel` AS s
+JOIN LatestDate AS ld
+ON s.date = ld.max_date
+WHERE s.county_name = 'Eagle' AND s.state_code = 'CO' AND s.elevation_ft > 8250
+LIMIT 1;
+2023-11-09 21:11:01,337 - INFO - File uploaded to gs://ask-bc-analytics/sql-queries/2023-11-09_21-11-00-622.json
+2023-11-09 21:11:01,342 - INFO - Generating response - System Context: You are a helpful assistant. Summarize the context below in relation to the user question. <context> [[{'average_snow_depth': 3.6666666666666665}]] <context> 
+2023-11-09 21:11:02,035 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
