@@ -25,7 +25,7 @@ st.caption("🚀 An Adventure Planning Companion")
 
 # Using the "with" syntax
 with st.sidebar.form(key='my_form'):
-    text_input = st.text_input(label='Enter some text')
+    text_input = st.text_input(label='Please Provide Feedback')
     print(text_input)
     submit_button = st.form_submit_button(label='Submit', on_click=upload_blob_from_memory,
                                         kwargs=dict(bucket_name='ask-bc-analytics', contents=json.dumps({"request": text_input}), destination_blob_name='feature_requests'))
