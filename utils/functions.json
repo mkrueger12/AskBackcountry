@@ -1,7 +1,7 @@
 [
   {
     "name": "snow_depth_data",
-    "description": "Collects Snow Depth and Snow Fall data.",
+    "description": "Returns Snow Depth and Snow Fall data. Can also return metadata on SNOTEL stations.",
     "parameters": {
       "type": "object",
       "properties": {
