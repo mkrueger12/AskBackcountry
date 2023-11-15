@@ -105,9 +105,9 @@ def method_selector(question):
 
     logging.info(f"Method selector - System Context: {messages}, Output: {response}")
 
-    response.choices[0].message.function_call.name
+    args = json.loads(response.choices[0].message.function_call.arguments)
 
-    return response.choices[0].message.function_call.name
+    return response.choices[0].message.function_call.name, args
 
 
 @st.cache_data(ttl='24h')
@@ -134,7 +134,7 @@ def clear_chat_history():
     st.session_state['sql'] = [{"question": None, "sql_query": None}]
 
 
-@st.cache_data(persist=True, ttl=None)
+@st.cache_data(persist=True, ttl=None, show_spinner=False)
 def location_extraction(question):
     system_content = ('You will be provided with a text, and your task is to extract the county, state, elevation, latitude, and longitude from it.'
                       'Do not attempt to answer the question. Only extract the location information.'
@@ -239,3 +239,73 @@ def snow_depth_sql(question):
     )
 
     return completion.choices[0].message.content
+
+
+@st.cache_data(ttl='24h', show_spinner=False)
+def co_field_obv (zone):
+
+    keys_to_keep = ['observed_at', 'backcountry_zone', 'url', 'avalanche_observations', 'avalanche_observations_count',
+                    'weather_observations', 'weather_observations_count',  'weather_detail',
+                    'snowpack_observations_count', 'snowpack_observations', 'snowpack_detail', 'area', 'route',
+                    'description', 'related_report_links']
+
+    url = 'https://avalanche.state.co.us/api-proxy/caic_data_api?_api_proxy_uri=/api/v2/observation_reports?page=1'
+
+    response = requests.get(url)
+    data = response.json()
+
+    week_ago = datetime.datetime.now() - datetime.timedelta(days=7)
+    filtered_list = [
+        {key: data_dict.get(key, None) for key in keys_to_keep}
+        for data_dict in data
+        if datetime.datetime.strptime(data_dict.get('observed_at', ''), '%Y-%m-%dT%H:%M:%S.%fZ') > week_ago
+    ]
+
+    filtered_list = [dict for dict in filtered_list if dict['backcountry_zone']['title'] == zone]
+
+    print(zone, len(filtered_list))
+
+    if len(filtered_list) == 0:
+        return 'No observations found for this zone in the last week.'
+
+    final_list = []
+
+    for dict in filtered_list:
+
+        oa = dict['observed_at']
+        zone = dict['backcountry_zone']['title']
+        url = dict['related_report_links']['external_canonical_report']
+        area = dict['area']
+        route = dict['route']
+        avalanche_observations = None
+        weather_observation = None
+        snowpack_observations = None
+        weather_detail = None
+        snowpack_detail = None
+
+        if dict['avalanche_observations_count'] > 0:
+            avalanche_observations = dict['avalanche_observations']
+
+        if dict['weather_observations_count'] > 0:
+            weather_observation = dict['weather_observations']
+
+        if dict['weather_detail'] is not None:
+            weather_detail = dict['weather_detail']
+
+        if dict['snowpack_detail'] is not None:
+            snowpack_detail = dict['snowpack_detail']
+
+        if dict['snowpack_observations_count'] > 0:
+            snowpack_observations = dict['snowpack_observations']
+
+        final_list.append({'observed_at': oa, 'backcountry_zone': zone, 'url': url, 'area': area, 'route': route,
+                           'avalanche_observations': avalanche_observations, 'weather_observation': weather_observation,
+                           'snowpack_observations': snowpack_observations, 'weather_detail': weather_detail,
+                           'snowpack_detail': snowpack_detail})
+
+        response = f'Provide a detailed, bulleted summary of the following observations. Return the value of the "url" key as well: {final_list}'
+
+    return response
+
+
+
