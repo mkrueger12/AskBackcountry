@@ -101,9 +101,9 @@ try:
 
             if user_question.method == 'co_field_obv':
 
-                print(args)
+                print(args['zone'])
 
-                user_question.data = co_field_obv(args)
+                user_question.data = co_field_obv(args['zone'])
 
 
             result = user_question.data
