@@ -56,7 +56,7 @@ for message in st.session_state.messages:
 
 
 # Get user input
-query = st.chat_input("How much snow is at Berthoud Pass? or What are the current CAIC observations for the Vail zone?")
+query = st.chat_input("How much snow is at Berthoud Pass?")
 try:
     if query:
 
