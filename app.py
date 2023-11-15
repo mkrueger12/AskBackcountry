@@ -14,8 +14,9 @@ logging.basicConfig(filename='app.log', level=logging.INFO, format='%(asctime)s 
 
 ################### SET UI COMPONENTS ###################
 st.warning('This app is still in development. You may see outages or issues. Please be patient and provide your feedback. '
-           ' How to Use - There are currently two modules SNOW & WEATHER. SNOW supports questions about the snowpack in the US SNOTEL network.'
-           ' WEATHER can provide a forecast for any location in the United States. '
+           ' **How to Use** - There are currently two modules SNOW & WEATHER. '
+           '**SNOW** supports questions about the snowpack in the US SNOTEL network and questions about CAIC field reports. '
+           ' **WEATHER** can provide a forecast for any location in the United States. '
            'The more specific you can be the better the results. Enjoy!', icon="⚠️")
 
 st.title("💬 AskBackcountry")
@@ -55,7 +56,7 @@ for message in st.session_state.messages:
 
 
 # Get user input
-query = st.chat_input("How much snow is at Berthoud Pass?")
+query = st.chat_input("How much snow is at Berthoud Pass? or What are the current CAIC observations for the Vail zone?")
 try:
     if query:
 
