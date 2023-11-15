@@ -16,18 +16,17 @@
     }
   },
   {
-    "name": "get_query_hunting",
-    "description": "Generates a SQL query for hunting related data based on the user's question.",
+    "name": "co_field_obv",
+    "description": "Collects the past 7 days of Colorado Avalanche Center field reports",
     "parameters": {
       "type": "object",
       "properties": {
-        "user_question": {
+        "zone": {
           "type": "string",
-          "description": "What was the archery elk success rate for GMU 49?"
+          "description": "One of the follwoing: 'Steamboat & Flat Tops', 'Front Range', 'Vail & Summit County', 'Sawatch', 'Aspen', 'Gunnison', 'Grand Mesa', 'North San Juan', 'South San Juan', 'Sangre de Cristo'"
         }
       },
       "required": [
-        "user_question"
       ]
     }
   },
