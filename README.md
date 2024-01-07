@@ -1,3 +1,5 @@
-# AskBackcountry: A Chatbot for Outdoor Enthusiasts
+# AskBackcountry Adventure Buddy: A Chat Companion for Your Outdoor Adventures 🏞️
 
-AskBackcountry demonstrates a basic multi-agent generative AI system. Additionally, it combines classic data systems and generative ai systems to answer user questions based on up-to-date data.
+## Powering AskBackcountry 🌲🏕️✨
+
+AskBackcountry is a dynamic multi-agent generative AI system that combines the worlds of classic data systems and state-of-the-art AI. AskBackcountry has knowledge of the near real-time weather conditions and can answer natural language questions based form users regardin the conditions.
